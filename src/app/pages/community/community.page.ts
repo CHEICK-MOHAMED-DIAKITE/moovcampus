@@ -6,11 +6,12 @@ import { CAMPUS_CO2, CHALLENGES, STUDENTS } from '../../data/community';
 import { CAMPUSES, MODES } from '../../data/mobility';
 import { TripStore } from '../../data/trip.store';
 import { AuthService } from '../../data/auth.service';
+import { PodiumComponent } from '../../shared/podium.component';
 
 @Component({
   selector: 'mc-community-page',
   standalone: true,
-  imports: [UserListComponent, BarChartRepartitionComponent, EventCard],
+  imports: [UserListComponent, BarChartRepartitionComponent, EventCard, PodiumComponent],
   templateUrl: './community.page.html',
   styleUrl: './community.page.scss'
 })
@@ -53,6 +54,10 @@ export class CommunityPage {
         };
     return [...STUDENTS, me];
   });
+
+  protected readonly top3 = computed(() =>
+    [...this.users()].sort((a, b) => b.points - a.points).slice(0, 3)
+  );
 
   /** Mode le plus utilisé (en km) par l'utilisateur, vélo par défaut. */
   private favoriteMode() {

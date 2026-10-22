@@ -1,5 +1,7 @@
 :host { display: block; }
 
+.community-podium { display: block; margin-bottom: 1.25rem; }
+
 .community-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;

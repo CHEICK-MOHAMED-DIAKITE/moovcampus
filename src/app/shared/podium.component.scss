@@ -1,0 +1,188 @@
+:host { display: block; }
+
+.podium {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 28px;
+  padding: 2.5rem 2rem 0;
+  color: #fff;
+  background:
+    radial-gradient(600px 300px at 50% 0%, rgba(242, 194, 48, 0.2), transparent 65%),
+    radial-gradient(700px 320px at 0% 100%, rgba(63, 211, 148, 0.18), transparent 60%),
+    #0b1f17;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: linear-gradient(#000, transparent 85%);
+    mask-image: linear-gradient(#000, transparent 85%);
+  }
+}
+
+.podium__head {
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+    font-weight: 800;
+    margin: 0 0 0.35rem;
+    color: #f4f7f2;
+  }
+
+  p { margin: 0; color: #a9bdb3; }
+}
+
+.podium__steps {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 720px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  gap: 0.9rem;
+}
+
+.podium__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+}
+
+.podium__person {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  margin-bottom: 0.9rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.podium__crown {
+  color: #f2c230;
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  filter: drop-shadow(0 0 12px rgba(242, 194, 48, 0.6));
+}
+
+.podium__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--mc-font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #0b1f17;
+  background: #d9dfdc;
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.45rem;
+
+  .podium__step--1 & { width: 82px; height: 82px; font-size: 1.4rem; background: #f2c230; box-shadow: 0 0 0 6px rgba(242, 194, 48, 0.2); }
+  .podium__step--3 & { background: #e3a978; }
+}
+
+.podium__name {
+  font-size: 1rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.podium__campus {
+  font-size: 0.8rem;
+  color: #9fb5aa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.podium__points {
+  margin-top: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.podium__block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.2rem;
+  padding-top: 0.9rem;
+  border-radius: 16px 16px 0 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 0;
+  height: 120px;
+
+  .podium__step--1 & {
+    height: 170px;
+    background: linear-gradient(180deg, rgba(242, 194, 48, 0.35), rgba(242, 194, 48, 0.06));
+    border-color: rgba(242, 194, 48, 0.45);
+  }
+
+  .podium__step--3 & {
+    height: 92px;
+    background: linear-gradient(180deg, rgba(227, 169, 120, 0.3), rgba(227, 169, 120, 0.05));
+    border-color: rgba(227, 169, 120, 0.4);
+  }
+}
+
+.podium__rank {
+  font-family: var(--mc-font-display);
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: #fff;
+
+  .podium__step--1 & { font-size: 3.4rem; color: #ffd866; }
+}
+
+.podium__co2 {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.podium__step--me .podium__avatar {
+  outline: 3px dashed #7fe3b5;
+  outline-offset: 4px;
+}
+
+@media (max-width: 560px) {
+  .podium { padding: 2rem 0.75rem 0; border-radius: 20px; }
+  .podium__steps { gap: 0.4rem; }
+  .podium__avatar { width: 48px; height: 48px; font-size: 0.95rem; border-width: 3px; }
+  .podium__step--1 .podium__avatar { width: 60px; height: 60px; font-size: 1.1rem; }
+  .podium__name { font-size: 0.85rem; }
+  .podium__campus { font-size: 0.7rem; }
+  .podium__points { font-size: 0.72rem; padding: 0.15rem 0.5rem; }
+  .podium__block { height: 96px; }
+  .podium__step--1 .podium__block { height: 130px; }
+  .podium__step--3 .podium__block { height: 74px; }
+  .podium__rank { font-size: 2rem; }
+  .podium__step--1 .podium__rank { font-size: 2.6rem; }
+  .podium__co2 { font-size: 0.66rem; }
+}
