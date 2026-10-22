@@ -4,6 +4,7 @@
 .user-list-page {
   max-width: 1400px;
   margin: 0 auto;
+  container-type: inline-size;
 }
 
 // HEADER
@@ -46,7 +47,7 @@
   border: 2px solid var(--mc-line);
   border-radius: 0.6rem;
   flex: 1;
-  min-width: 250px;
+  min-width: min(250px, 100%);
   max-width: 420px;
   transition: all 0.2s ease;
 
@@ -109,6 +110,8 @@
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(22, 35, 29, 0.05);
   overflow: hidden;
+  overflow-x: auto;
+  position: relative;
 }
 
 .user-table {
@@ -229,6 +232,7 @@
 .user-name {
   font-weight: 700;
   color: var(--mc-ink);
+  white-space: nowrap;
 }
 
 .me-tag {
@@ -246,6 +250,10 @@
 .user-email {
   font-size: 0.82rem;
   color: var(--mc-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
 }
 
 // BADGES
@@ -295,6 +303,8 @@
     .status-dot { background: var(--mc-yellow); }
   }
 }
+
+.campus-cell { white-space: nowrap; }
 
 .last-active {
   font-size: 0.9rem;
@@ -411,14 +421,23 @@
   }
 }
 
-// RESPONSIVE
-@media (max-width: 1100px) {
+// RESPONSIVE (requêtes de conteneur : le tableau s'adapte à la place qu'on lui donne)
+@container (max-width: 980px) {
   .hide-lg { display: none; }
+}
+
+@container (max-width: 840px) {
+  .hide-status { display: none; }
+}
+
+@container (max-width: 700px) {
+  .hide-sm { display: none; }
 }
 
 @media (max-width: 1024px) {
   .toolbar {
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: stretch;
   }
 
@@ -431,15 +450,22 @@
   }
 }
 
-@media (max-width: 760px) {
+@container (max-width: 560px) {
   .hide-md { display: none; }
 }
 
-@media (max-width: 560px) {
-  .hide-sm { display: none; }
-  .filters { flex-direction: column; }
+@container (max-width: 440px) {
+  .user-email { display: none; }
+  .user-name { white-space: normal; }
+  .me-tag { margin-left: 0.15rem; }
   .user-table tbody td, .user-table thead th { padding: 0.75rem 0.5rem; }
   .rank-cell { width: 48px; }
   .user-avatar { width: 34px; height: 34px; font-size: 0.75rem; }
   .actions-cell { width: 44px; }
+}
+
+@media (max-width: 560px) {
+  .filters { flex-direction: column; min-width: 0; }
+  .filters select { width: 100%; min-width: 0; }
+  .search-box { min-width: 0; }
 }

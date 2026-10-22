@@ -7,7 +7,7 @@ import { BarChartRepartitionComponent } from '../../libraryui/graphe-repartition
 import { ActivityHistoryComponent } from '../../libraryui/activity-history/activity-history.component';
 import { Modal1Component } from '../../libraryui/modal-1/modal-1.component';
 import { TripStore } from '../../data/trip.store';
-import { MODES, Mode, co2Saved, modeInfo, pointsFor } from '../../data/mobility';
+import { MODES, Mode, co2Saved, formatCo2, modeInfo, pointsFor } from '../../data/mobility';
 import { STUDENTS } from '../../data/community';
 
 @Component({
@@ -62,6 +62,7 @@ export class DashboardPage {
   protected submitted = false;
 
   protected previewCo2(): number { return co2Saved({ mode: this.form.mode, km: Number(this.form.km) || 0 }); }
+  protected previewCo2Label(): string { return formatCo2(this.previewCo2()); }
   protected previewPoints(): number { return pointsFor({ mode: this.form.mode, km: Number(this.form.km) || 0 }); }
 
   constructor() {
@@ -99,7 +100,6 @@ export class DashboardPage {
 
   successText(): string {
     const g = this.lastGain();
-    const grams = Math.round(g.co2 * 1000).toLocaleString('fr-FR');
-    return `Tu as évité ${grams} g de CO₂ et gagné ${g.points} points. Ton tableau de bord est à jour.`;
+    return `Tu as évité ${formatCo2(g.co2)} de CO₂ et gagné ${g.points} points. Ton tableau de bord est à jour.`;
   }
 }

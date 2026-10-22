@@ -89,7 +89,8 @@ export class UserListComponent {
   }
 
   getModeLabel(mode: Mode): string {
-    return modeInfo(mode).label;
+    // Libellé court pour garder la colonne compacte
+    return mode === 'transports' ? 'Transports' : modeInfo(mode).label;
   }
 
   getModeIcon(mode: Mode): string {
@@ -111,7 +112,7 @@ export class UserListComponent {
 
   getStatusLabel(status: string): string {
     const labels: { [key: string]: string } = {
-      active: 'Actif cette semaine',
+      active: 'Actif',
       inactive: 'En pause',
       pending: 'Nouveau'
     };

@@ -11,9 +11,11 @@
         <span class="kpi-card__title">{{ kpi.title }}</span>
         <span class="kpi-card__value">{{ formatValue(kpi) }}</span>
         <div class="kpi-card__change" *ngIf="kpi.change" [ngClass]="getChangeClass(kpi.change.type)">
-          <i class="bi" [ngClass]="getChangeIcon(kpi.change.type)"></i>
-          <span>{{ kpi.change.value > 0 ? '+' : '' }}{{ kpi.change.value }}%</span>
-          <span class="change-period">{{ kpi.change.period }}</span>
+          @if (kpi.change.value !== 0) {
+            <i class="bi" [ngClass]="getChangeIcon(kpi.change.type)"></i>
+            <span>{{ kpi.change.value > 0 ? '+' : '' }}{{ kpi.change.value }}%</span>
+          }
+          <span class="change-period" [class.change-period--solo]="kpi.change.value === 0">{{ kpi.change.period }}</span>
         </div>
       </div>
     </div>

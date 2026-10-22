@@ -10,7 +10,7 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MODES, Mode, Trip, co2Saved, modeInfo, pointsFor } from '../../data/mobility';
+import { MODES, Mode, Trip, co2Saved, formatCo2, modeInfo, pointsFor } from '../../data/mobility';
 
 export interface ActivityItem {
   id: string;
@@ -70,8 +70,7 @@ export class ActivityHistoryComponent {
   private describe(t: Trip): string {
     const saved = co2Saved(t);
     if (saved === 0) return 'Trajet enregistré.';
-    const grams = Math.round(saved * 1000);
-    return `${grams.toLocaleString('fr-FR')} g de CO₂ évités par rapport au même trajet en voiture.`;
+    return `${formatCo2(saved)} de CO₂ évités par rapport au même trajet en voiture.`;
   }
 
   getFilteredActivities(): ActivityItem[] {

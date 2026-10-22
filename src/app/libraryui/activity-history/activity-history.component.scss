@@ -127,7 +127,9 @@
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--mc-ink);
-  text-transform: capitalize;
+  display: inline-block;
+
+  &::first-letter { text-transform: uppercase; }
 }
 
 .date-count {

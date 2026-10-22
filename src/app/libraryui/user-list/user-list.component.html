@@ -40,7 +40,7 @@
           <th scope="col">Étudiant</th>
           <th class="hide-md" scope="col">Mode favori</th>
           <th class="hide-lg" scope="col">Campus</th>
-          <th class="hide-lg" scope="col">Statut</th>
+          <th class="hide-status" scope="col">Statut</th>
           <th class="num-cell" scope="col">Points</th>
           <th class="num-cell hide-sm" scope="col">CO₂ évité</th>
           <th class="actions-cell" scope="col"><span class="visually-hidden">Actions</span></th>
@@ -66,8 +66,8 @@
               {{ getModeLabel(user.mode) }}
             </span>
           </td>
-          <td class="hide-lg">{{ user.campus }}</td>
-          <td class="hide-lg">
+          <td class="hide-lg campus-cell">{{ user.campus }}</td>
+          <td class="hide-status">
             <span class="status-badge" [ngClass]="getStatusClass(user.status)">
               <span class="status-dot"></span>
               {{ getStatusLabel(user.status) }}
