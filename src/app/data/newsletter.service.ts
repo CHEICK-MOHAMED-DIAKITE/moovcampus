@@ -39,9 +39,28 @@ export class NewsletterService {
     await emailjs.send(
       NEWSLETTER_CONFIG.serviceId,
       NEWSLETTER_CONFIG.contactTemplateId,
-      { from_name: msg.fromName, reply_to: msg.replyTo, subject: msg.subject, message: msg.message },
+      {
+        from_name: msg.fromName,
+        reply_to: msg.replyTo,
+        subject: msg.subject,
+        message: msg.message,
+        reply_url: this.replyUrl(msg)
+      },
       { publicKey: NEWSLETTER_CONFIG.publicKey }
     );
+  }
+
+  /**
+   * Lien « Répondre » prêt à l'emploi pour l'e-mail reçu par l'équipe :
+   * ouvre la messagerie avec le destinataire, un objet et un début de réponse
+   * qui cite le message (encodé correctement, ce que le modèle EmailJS ne sait pas faire).
+   */
+  private replyUrl(msg: ContactMessage): string {
+    const firstName = msg.fromName.split(' ')[0] || msg.fromName;
+    const quoted = msg.message.length > 600 ? msg.message.slice(0, 600) + '…' : msg.message;
+    const subject = `Re : ${msg.subject} (MoovCampus)`;
+    const body = `Bonjour ${firstName},\n\nMerci pour ton message.\n\n\n\nL'équipe MoovCampus\n\n---\nTon message :\n${quoted}`;
+    return `mailto:${msg.replyTo.trim()}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
   /** Envoie l'e-mail de bienvenue. Sans configuration, l'inscription reste une simulation. */
