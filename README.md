@@ -35,9 +35,10 @@ La démo est interactive : tu peux **créer ton compte**, puis chaque trajet dé
 | **Tableau de bord** | Indicateurs personnels, km par mode, objectif mensuel, historique des trajets, formulaire de déclaration |
 | **Classement et défis** | Classement filtrable des étudiants, CO₂ évité par campus, tous les défis |
 | **Créer un compte / Connexion** | Formulaires d'inscription et de connexion, session mémorisée |
+| **Contact** | Formulaire dont les messages arrivent par e-mail à l'équipe (EmailJS) |
 | **Composants** | La liste des composants LibraryUI utilisés, avec liens vers LibraryUI et vers le code |
 
-## Les 13 composants LibraryUI utilisés
+## Les 14 composants LibraryUI utilisés
 
 Tous les composants sont dans [`src/app/libraryui/`](src/app/libraryui). Chaque fichier commence par un commentaire qui cite sa page LibraryUI, et l'élément racine de chaque composant porte un attribut `data-libraryui` visible dans l'inspecteur du navigateur.
 
@@ -53,9 +54,10 @@ Tous les composants sont dans [`src/app/libraryui/`](src/app/libraryui). Chaque 
 | 8 | [Cards](https://www.libraryui.com/components/bootstrap/cards) | Event card | `event-card` | Cartes de défis |
 | 9 | [Formulaire d'inscription](https://www.libraryui.com/components/bootstrap/formulaire-d-inscription) | Inscription | `register` | Création de compte |
 | 10 | [Formulaire de connexion](https://www.libraryui.com/components/bootstrap/formulaire-de-connexion) | Connexion | `login` | Connexion |
-| 11 | [Faq](https://www.libraryui.com/components/bootstrap/faq) | Frequently Asked Questions | `faq-minimal` | Questions fréquentes |
-| 12 | [Call to action](https://www.libraryui.com/components/bootstrap/call-to-action) | V1 | `call-to-action-1` | Bandeau final de l'accueil |
-| 13 | [Footer](https://www.libraryui.com/components/bootstrap/footer) | Full footer | `full-footer` | Pied de page |
+| 11 | [Contactez-nous](https://www.libraryui.com/components/bootstrap/contactez-nous) | Contact us | `contact` | Formulaire de contact (messages envoyés par e-mail) |
+| 12 | [Faq](https://www.libraryui.com/components/bootstrap/faq) | Frequently Asked Questions | `faq-minimal` | Questions fréquentes |
+| 13 | [Call to action](https://www.libraryui.com/components/bootstrap/call-to-action) | V1 | `call-to-action-1` | Bandeau final de l'accueil |
+| 14 | [Footer](https://www.libraryui.com/components/bootstrap/footer) | Full footer | `full-footer` | Pied de page |
 
 ### Ce qui a été adapté
 

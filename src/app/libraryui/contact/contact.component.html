@@ -1,0 +1,112 @@
+<section class="mv-contact" data-libraryui="contactez-nous · Contact us">
+  <div class="mv-contact__inner">
+
+    <!-- Left card : info -->
+    <div class="mv-contact__info">
+      <span class="mv-contact__tag">Contact</span>
+      <h1>Une question ?<br>Une idée de défi ?</h1>
+      <p>L'équipe MoovCampus lit tous les messages. Écris-nous pour une question, une suggestion ou pour faire entrer ton campus dans le classement.</p>
+
+      <div class="mv-contact__details">
+        <div class="mv-contact__detail-item">
+          <div class="mv-contact__detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 1.9"/></svg>
+          </div>
+          <div>
+            <div class="mv-contact__detail-label">Délai de réponse</div>
+            <div class="mv-contact__detail-value">Sous 24 h en semaine</div>
+          </div>
+        </div>
+
+        <div class="mv-contact__detail-item">
+          <div class="mv-contact__detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div>
+            <div class="mv-contact__detail-label">Réponse</div>
+            <div class="mv-contact__detail-value">Directement dans ta boîte mail</div>
+          </div>
+        </div>
+
+        <div class="mv-contact__detail-item">
+          <div class="mv-contact__detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="mv-contact__detail-label">Campus partenaires</div>
+            <div class="mv-contact__detail-value">6 campus en Île-de-France,<br>et bientôt le tien ?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right : form -->
+    <div class="mv-contact__form-wrap">
+      <span class="mv-contact__form-tag">Écris-nous</span>
+      <h2>Envoyer un message</h2>
+      <p class="mv-contact__form-sub">Remplis le formulaire : ton message part directement à l'équipe, qui te répondra à l'adresse indiquée.</p>
+
+      <p class="mv-contact__error" *ngIf="!active">Le formulaire de contact est en cours d'activation. Reviens dans quelques minutes.</p>
+
+      <ng-container *ngIf="!sent">
+        <form (ngSubmit)="send()" novalidate>
+          <div class="mv-contact__row">
+            <div class="mv-contact__field">
+              <label class="visually-hidden" for="ct-first">Prénom</label>
+              <input id="ct-first" class="mv-contact__input" type="text" name="firstName" [(ngModel)]="firstName" placeholder="Prénom*" autocomplete="given-name"
+                     [attr.aria-invalid]="touched && !firstName.trim()" />
+            </div>
+            <div class="mv-contact__field">
+              <label class="visually-hidden" for="ct-last">Nom</label>
+              <input id="ct-last" class="mv-contact__input" type="text" name="lastName" [(ngModel)]="lastName" placeholder="Nom" autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="mv-contact__row">
+            <div class="mv-contact__field">
+              <label class="visually-hidden" for="ct-email">E-mail</label>
+              <input id="ct-email" class="mv-contact__input" type="email" name="email" [(ngModel)]="email" placeholder="E-mail*" autocomplete="email"
+                     [attr.aria-invalid]="touched && !emailValid" />
+            </div>
+            <div class="mv-contact__field">
+              <label class="visually-hidden" for="ct-subject">Sujet</label>
+              <select id="ct-subject" class="mv-contact__input mv-contact__select" name="subject" [(ngModel)]="subject">
+                <option *ngFor="let s of subjects" [value]="s">{{ s }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="mv-contact__field">
+            <label class="visually-hidden" for="ct-message">Message</label>
+            <textarea id="ct-message" class="mv-contact__textarea" name="message" [(ngModel)]="message" placeholder="Ton message (10 caractères minimum)*" rows="5"
+                      [attr.aria-invalid]="touched && message.trim().length < 10"></textarea>
+          </div>
+          <!-- Champ piège anti-spam, masqué aux humains -->
+          <div class="mv-contact__hp" aria-hidden="true">
+            <label for="ct-website">Ne pas remplir</label>
+            <input id="ct-website" type="text" name="website" [(ngModel)]="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <p class="mv-contact__error" role="alert" *ngIf="error">{{ error }}</p>
+          <p class="mv-contact__hint" *ngIf="active && touched && !canSend && !sending && !error">Indique ton prénom, une adresse e-mail valide et un message d'au moins 10 caractères.</p>
+
+          <button class="mv-contact__btn" type="submit" [disabled]="sending || !active">
+            {{ sending ? 'Envoi en cours…' : 'Envoyer le message' }}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </form>
+      </ng-container>
+
+      <ng-container *ngIf="sent">
+        <div class="mv-contact__success" role="status">
+          <div class="mv-contact__success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Message envoyé !</h3>
+          <p>Merci {{ firstName }}. L'équipe te répondra à {{ email }}, en général dans la journée.</p>
+          <button class="mv-contact__btn mv-contact__btn--outline" type="button" (click)="reset()">Envoyer un autre message</button>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+
+</section>

@@ -34,6 +34,7 @@ export class App {
     {
       title: 'Aide',
       links: [
+        { label: 'Nous contacter', route: '/contact' },
         { label: 'Questions fréquentes', route: '/', fragment: 'faq' },
         { label: 'Calcul du CO₂', route: '/', fragment: 'faq' },
         { label: 'Données ADEME', href: 'https://impactco2.fr/outils/transport' }
@@ -42,7 +43,7 @@ export class App {
     {
       title: 'Projet',
       links: [
-        { label: 'Composants LibraryUI', route: '/composants', badge: '13' },
+        { label: 'Composants LibraryUI', route: '/composants', badge: '14' },
         { label: 'Code source', href: REPO_URL },
         { label: 'LibraryUI', href: 'https://www.libraryui.com/accueil' }
       ]

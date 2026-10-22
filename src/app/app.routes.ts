@@ -27,6 +27,11 @@ export const routes: Routes = [
     loadComponent: () => import('./libraryui/login/login.component').then(m => m.LoginComponent)
   },
   {
+    path: 'contact',
+    title: 'Nous contacter · MoovCampus',
+    loadComponent: () => import('./libraryui/contact/contact.component').then(m => m.ContactMavix)
+  },
+  {
     path: 'composants',
     title: 'Composants LibraryUI utilisés · MoovCampus',
     loadComponent: () => import('./pages/components/components.page').then(m => m.ComponentsPage)
