@@ -3,7 +3,8 @@
  * Source : https://www.libraryui.com/components/bootstrap/hero
  *
  * Adaptations MoovCampus : textes et statistiques en entrées, boutons routés,
- * écran du navigateur alimenté par projection de contenu (<ng-content>).
+ * écran du navigateur alimenté par projection de contenu (<ng-content>),
+ * variante « night » (panneau sombre façon réseau de transport la nuit).
  */
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -27,4 +28,5 @@ export class HeroV2Component {
   readonly secondary = input<HeroAction | null>(null);
   readonly stats = input<HeroStat[]>([]);
   readonly screenLabel = input('Aperçu de l\'application');
+  readonly variant = input<'light' | 'night'>('light');
 }

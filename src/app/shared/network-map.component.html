@@ -1,0 +1,86 @@
+<div class="nm">
+  <svg class="nm__map" viewBox="0 0 1000 460" aria-hidden="true">
+    <defs>
+      <pattern id="nm-dots" width="26" height="26" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1.4" fill="rgba(255,255,255,.07)" />
+      </pattern>
+      <filter id="nm-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="5" result="b" />
+        <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+      </filter>
+    </defs>
+
+    <rect width="1000" height="460" fill="url(#nm-dots)" />
+
+    <!-- La Seine -->
+    <path class="nm__seine" d="M-10 250 C 110 285 190 215 300 245 S 440 300 505 262 S 640 205 720 250 S 880 330 1010 290" />
+    <text class="nm__river" x="880" y="345">Seine</text>
+
+    <!-- Lignes -->
+    <path id="nm-l-transports" class="nm__line" stroke="#6b9bff" d="M260 60 L330 170 Q350 200 390 205 L500 212 Q545 214 575 240 L705 285 Q740 298 790 300" />
+    <path id="nm-l-velo" class="nm__line" stroke="#3fd394" d="M540 80 L522 150 Q512 182 507 212 L515 300 Q518 318 520 335" />
+    <path id="nm-l-covoit" class="nm__line" stroke="#b39bff" d="M250 400 Q330 382 385 365 L520 335" />
+    <path id="nm-l-trott" class="nm__line" stroke="#3fd0c9" d="M330 170 Q410 110 540 80" />
+    <path id="nm-l-marche" class="nm__line nm__line--dashed" stroke="#ffad5c" d="M640 263 Q585 300 520 335" />
+
+    <!-- Voyageurs -->
+    <g class="nm__riders" filter="url(#nm-glow)">
+      <circle r="7" fill="#cfe0ff"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#nm-l-transports" /></animateMotion></circle>
+      <circle r="7" fill="#cfe0ff"><animateMotion dur="9s" begin="-4.5s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#nm-l-transports" /></animateMotion></circle>
+      <circle r="7" fill="#c7f5df"><animateMotion dur="6s" repeatCount="indefinite"><mpath href="#nm-l-velo" /></animateMotion></circle>
+      <circle r="7" fill="#e6dcff"><animateMotion dur="7s" begin="-2s" repeatCount="indefinite"><mpath href="#nm-l-covoit" /></animateMotion></circle>
+      <circle r="6" fill="#c9f3f0"><animateMotion dur="5.5s" begin="-1s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#nm-l-trott" /></animateMotion></circle>
+      <circle r="6" fill="#ffe2c4"><animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#nm-l-marche" /></animateMotion></circle>
+    </g>
+
+    <!-- Stations -->
+    <g class="nm__stations">
+      <circle cx="260" cy="60" r="10" />
+      <circle cx="330" cy="170" r="10" />
+      <circle cx="540" cy="80" r="10" />
+      <circle cx="790" cy="300" r="10" />
+      <circle cx="250" cy="400" r="10" />
+      <circle cx="640" cy="263" r="7" class="nm__stop" />
+      <circle cx="507" cy="212" r="7" class="nm__stop" />
+      <circle cx="520" cy="335" r="13" class="nm__station--hot" />
+      <circle cx="520" cy="335" r="13" class="nm__pulse" />
+    </g>
+
+    <g class="nm__labels" text-anchor="middle">
+      <text x="290" y="45" text-anchor="start">Cergy</text>
+      <text x="305" y="168" text-anchor="end" class="nm__minor">Nanterre</text>
+      <text x="566" y="70" text-anchor="start">Saint-Denis</text>
+      <text x="476" y="216" text-anchor="end" class="nm__minor nm__muted">Paris</text>
+      <text x="790" y="272">Créteil</text>
+      <text x="250" y="440">Paris-Saclay</text>
+      <text x="640" y="240" class="nm__minor nm__muted">Ivry</text>
+      <text x="520" y="378" class="nm__hot">Villejuif</text>
+    </g>
+  </svg>
+
+  <div class="nm__live" role="status" aria-live="off">
+    <span class="nm__live-tag"><span class="nm__live-dot"></span>En direct</span>
+    <span class="nm__live-label">CO₂ évité aujourd'hui</span>
+    <strong class="nm__live-value">{{ co2Today() | number:'1.1-1' }} kg</strong>
+  </div>
+
+  <div class="nm__feed" aria-hidden="true">
+    @for (a of [arrival()]; track a.id) {
+      <div class="nm__arrival">
+        <span class="nm__avatar" [style.background]="a.color">{{ a.initials }}</span>
+        <span class="nm__arrival-text">
+          <strong>{{ a.name }} arrive au {{ a.campus }}</strong>
+          <span>{{ a.detail }}</span>
+        </span>
+      </div>
+    }
+  </div>
+
+  <ul class="nm__legend" aria-label="Légende du plan">
+    <li><i style="background:#3fd394"></i>Vélo</li>
+    <li><i style="background:#6b9bff"></i>Transports</li>
+    <li><i style="background:#b39bff"></i>Covoiturage</li>
+    <li><i style="background:#3fd0c9"></i>Trottinette</li>
+    <li><i style="background:#ffad5c"></i>Marche</li>
+  </ul>
+</div>

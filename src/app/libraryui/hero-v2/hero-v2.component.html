@@ -1,4 +1,4 @@
-<section class="hero1" data-libraryui="hero · Hero v-2">
+<section class="hero1" [class.hero1--night]="variant() === 'night'" data-libraryui="hero · Hero v-2">
   @if (badge()) {
     <div class="hero1__badge"><i class="bi bi-stars"></i> {{ badge() }}</div>
   }

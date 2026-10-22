@@ -6,9 +6,10 @@
   [primary]="{ label: 'Déclarer un trajet', icon: 'bi-plus-lg', path: '/tableau-de-bord', query: { declarer: '1' } }"
   [secondary]="{ label: 'Voir le classement', icon: 'bi-trophy', path: '/communaute' }"
   [stats]="heroStats"
-  screenLabel="Exemple de trajet : 5,9 km à vélo jusqu'au campus, 1,18 kg de CO₂ évités, 79 points gagnés"
+  variant="night"
+  screenLabel="Plan animé des campus d'Île-de-France reliés par des lignes vélo, transports, covoiturage, trottinette et marche, avec le CO₂ évité en direct"
 >
-  <mc-route-preview />
+  <mc-network-map />
 </ui-hero-v2>
 
 <section class="mc-section mc-section--tight">

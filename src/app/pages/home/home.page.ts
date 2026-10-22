@@ -5,13 +5,13 @@ import { KpiCardsBasicComponent, KPICard } from '../../libraryui/kpi-cards-basic
 import { EventCard } from '../../libraryui/event-card/event-card.component';
 import { FaqMinimalComponent } from '../../libraryui/faq-minimal/faq-minimal.component';
 import { CallToAction1 } from '../../libraryui/call-to-action-1/call-to-action-1.component';
-import { RoutePreviewComponent } from '../../shared/route-preview.component';
+import { NetworkMapComponent } from '../../shared/network-map.component';
 import { CHALLENGES, FAQ } from '../../data/community';
 
 @Component({
   selector: 'mc-home-page',
   standalone: true,
-  imports: [RouterLink, HeroV2Component, KpiCardsBasicComponent, EventCard, FaqMinimalComponent, CallToAction1, RoutePreviewComponent],
+  imports: [RouterLink, HeroV2Component, KpiCardsBasicComponent, EventCard, FaqMinimalComponent, CallToAction1, NetworkMapComponent],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss'
 })
