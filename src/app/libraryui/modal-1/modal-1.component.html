@@ -1,0 +1,13 @@
+<div *ngIf="open()" class="modal1-backdrop" (click)="closed.emit()" data-libraryui="modal · V1">
+  <div class="modal1" [class.modal1--wide]="wide()" role="dialog" aria-modal="true" [attr.aria-labelledby]="titleId" (click)="$event.stopPropagation()">
+    <button class="modal1__close" type="button" aria-label="Fermer" (click)="closed.emit()"><i class="bi bi-x-lg"></i></button>
+    <div class="modal1__icon" [class.modal1__icon--brand]="tone() === 'brand'"><i class="bi" [ngClass]="icon()"></i></div>
+    <h3 [id]="titleId">{{ title() }}</h3>
+    <p *ngIf="text()">{{ text() }}</p>
+    <ng-content />
+    <div class="modal1__btns" *ngIf="showButtons()">
+      <button class="modal1__cancel" type="button" (click)="closed.emit()">{{ cancelLabel() }}</button>
+      <button class="modal1__confirm" type="button" (click)="confirmed.emit()">{{ confirmLabel() }}</button>
+    </div>
+  </div>
+</div>

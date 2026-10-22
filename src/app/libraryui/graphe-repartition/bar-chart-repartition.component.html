@@ -1,0 +1,25 @@
+<section class="failure-card" [attr.aria-label]="title()" data-libraryui="graphe-repartition · Bar chart">
+  <h2 class="failure-card__title">{{ title() }}</h2>
+  @if (subtitle()) { <p class="failure-card__subtitle">{{ subtitle() }}</p> }
+
+  <ul class="failure-list list-unstyled" role="list">
+    @for (row of rows(); track row.commune) {
+      <li class="failure-row" role="listitem">
+        <div class="failure-row__head">
+          <span class="failure-row__label">{{ row.commune }}</span>
+          <span class="failure-row__value">{{ format(row.count) }} {{ unit() }}</span>
+        </div>
+        <div
+          class="failure-row__track"
+          role="progressbar"
+          [attr.aria-label]="row.commune + ' : ' + row.count + ' ' + unit()"
+          [attr.aria-valuenow]="row.count"
+          aria-valuemin="0"
+          [attr.aria-valuemax]="scale()"
+        >
+          <div class="failure-row__fill" [style.width.%]="row.percentage" [style.background]="row.color || null"></div>
+        </div>
+      </li>
+    }
+  </ul>
+</section>

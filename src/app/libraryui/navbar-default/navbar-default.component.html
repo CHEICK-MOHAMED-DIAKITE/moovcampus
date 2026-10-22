@@ -1,0 +1,38 @@
+<div class="ui-navbar-showcase" data-libraryui="main-menu · Default">
+  <nav class="nbar nbar--default" [class.nbar--open]="menuOpen()" aria-label="Navigation principale">
+    <a routerLink="/" class="nbar-brand" (click)="closeMenu()">
+      <div class="nbar-logo" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><path d="M7 22 L13 10 L19 22 L25 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="10" r="3" fill="#f2c230" stroke="none"/></svg>
+      </div>
+      <span class="nbar-brand-name">{{ brandName() }}</span>
+    </a>
+
+    <div class="nbar-nav" id="nbar-menu">
+      @for (link of links(); track link.path) {
+        <a [routerLink]="link.path"
+           class="nbar-link"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: !!link.exact }"
+           (click)="closeMenu()">
+          @if (link.icon) { <i class="bi" [class]="link.icon" aria-hidden="true"></i> }
+          {{ link.label }}
+        </a>
+      }
+    </div>
+
+    <div class="nbar-actions">
+      <button class="nbar-icon-btn" type="button" aria-label="Notifications : 2 nouvelles">
+        <i class="bi bi-bell"></i>
+        <span class="nbar-notif-dot"></span>
+      </button>
+      <a routerLink="/tableau-de-bord" class="nbar-avatar" aria-label="Mon profil" (click)="closeMenu()">{{ userInitials() }}</a>
+      <button class="nbar-burger" type="button"
+              [attr.aria-expanded]="menuOpen()"
+              aria-controls="nbar-menu"
+              [attr.aria-label]="menuOpen() ? 'Fermer le menu' : 'Ouvrir le menu'"
+              (click)="toggleMenu()">
+        <i class="bi" [class.bi-list]="!menuOpen()" [class.bi-x-lg]="menuOpen()"></i>
+      </button>
+    </div>
+  </nav>
+</div>

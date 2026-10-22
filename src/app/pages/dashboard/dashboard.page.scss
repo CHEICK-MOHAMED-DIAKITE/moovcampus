@@ -1,0 +1,211 @@
+:host { display: block; }
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+  gap: 1.25rem;
+  margin: 1.25rem 0;
+}
+
+/* Carte objectif (composant maison, dans l'esprit des cartes LibraryUI) */
+.goal {
+  background: #fff;
+  border: 1px solid var(--mc-line);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    font-size: 19px;
+    font-weight: 800;
+    margin: 0 0 6px;
+  }
+}
+
+.goal__sub {
+  color: var(--mc-muted);
+  font-size: 14px;
+  margin: 0 0 1.25rem;
+}
+
+.goal__ring {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  margin: 0 auto 1.25rem;
+
+  svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+}
+
+.goal__track { fill: none; stroke: #e7ede9; stroke-width: 12; }
+.goal__bar {
+  fill: none;
+  stroke: var(--mc-green);
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-dasharray: 302;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.goal__value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  strong { font-family: var(--mc-font-display); font-size: 2rem; font-weight: 800; line-height: 1; }
+  span { color: var(--mc-muted); font-size: 0.85rem; margin-top: 0.25rem; }
+}
+
+.goal__hint {
+  text-align: center;
+  color: var(--mc-muted);
+  font-size: 0.92rem;
+  margin: 0 0 1.25rem;
+
+  strong { color: var(--mc-ink); }
+
+  &--done { color: var(--mc-green); font-weight: 700; }
+}
+
+.goal__tree {
+  margin-top: auto;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: var(--mc-green-soft);
+  color: var(--mc-green-dark);
+  font-size: 0.88rem;
+  line-height: 1.45;
+
+  i { font-size: 1.5rem; }
+}
+
+/* ---------- Formulaire dans la modal ---------- */
+.trip-form {
+  margin-top: -0.75rem;
+}
+
+.trip-form__modes {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1.1rem;
+
+  legend {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    float: none;
+  }
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+.mode-chip {
+  --chip: var(--mc-green);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.7rem 0.3rem;
+  border: 2px solid var(--mc-line);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--mc-muted);
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+
+  input { position: absolute; opacity: 0; pointer-events: none; }
+  i { font-size: 1.35rem; }
+
+  &:hover { border-color: #c5d2ca; }
+  &:has(input:focus-visible) { outline: 3px solid var(--mc-yellow); outline-offset: 2px; }
+
+  &--on {
+    border-color: var(--chip);
+    color: var(--chip);
+    background: color-mix(in srgb, var(--chip) 9%, white);
+  }
+}
+
+.trip-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+
+  span { font-size: 0.9rem; font-weight: 700; }
+
+  input {
+    padding: 0.7rem 0.9rem;
+    border: 2px solid var(--mc-line);
+    border-radius: 10px;
+    font-size: 1rem;
+    color: var(--mc-ink);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:focus { border-color: var(--mc-green); box-shadow: 0 0 0 3px rgba(31, 138, 91, 0.12); }
+    &[aria-invalid='true'] { border-color: var(--mc-red); }
+  }
+}
+
+.field--km { max-width: 220px; }
+
+.field__error {
+  color: var(--mc-red);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.trip-form__preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: #f4f8f5;
+  border: 1px dashed #c9dccf;
+  font-size: 0.92rem;
+  color: var(--mc-muted);
+  margin-bottom: 1.25rem;
+
+  i { color: var(--mc-green); }
+  strong { color: var(--mc-ink); }
+}
+
+.trip-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+@media (max-width: 960px) {
+  .dash-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .mode-grid { grid-template-columns: repeat(3, 1fr); }
+  .trip-form__row { grid-template-columns: 1fr; gap: 0; }
+  .field--km { max-width: none; }
+  .trip-form__actions { flex-direction: column-reverse; .mc-btn { width: 100%; } }
+}

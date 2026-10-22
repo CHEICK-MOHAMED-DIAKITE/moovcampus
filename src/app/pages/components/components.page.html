@@ -1,0 +1,39 @@
+<div class="mc-container">
+  <div class="mc-page-head">
+    <div>
+      <h1>Les {{ items.length }} composants LibraryUI de MoovCampus</h1>
+      <p>Chaque composant vient de la bibliothèque LibraryUI (Angular × Bootstrap), puis a été adapté aux données et à la charte de l'application.</p>
+    </div>
+    <a class="mc-btn mc-btn--ghost" [href]="repo" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i> Voir le code</a>
+  </div>
+
+  <ul class="cmp-list">
+    @for (c of items; track c.slug + c.style) {
+      <li class="cmp">
+        <div class="cmp__icon" aria-hidden="true"><i class="bi" [class]="c.icon"></i></div>
+        <div class="cmp__body">
+          <h2>{{ c.name }} <span class="cmp__style">style « {{ c.style }} »</span></h2>
+          <p>{{ c.role }}</p>
+          <div class="cmp__meta">
+            <code>&lt;{{ c.selector }}&gt;</code>
+            <span class="cmp__used">
+              Utilisé dans :
+              @for (u of c.usedIn; track u.label; let last = $last) {
+                <a [routerLink]="u.path">{{ u.label }}</a>@if (!last) {, }
+              }
+            </span>
+          </div>
+        </div>
+        <div class="cmp__links">
+          <a [href]="lib + c.slug" target="_blank" rel="noopener" class="cmp__link cmp__link--lib">Voir sur LibraryUI</a>
+          <a [href]="repo + c.folder" target="_blank" rel="noopener" class="cmp__link">Code adapté</a>
+        </div>
+      </li>
+    }
+  </ul>
+
+  <p class="cmp-note">
+    <i class="bi bi-info-circle" aria-hidden="true"></i>
+    Dans le code, chaque composant se trouve dans <code>src/app/libraryui/</code> avec un commentaire qui cite sa page LibraryUI, et son élément racine porte un attribut <code>data-libraryui</code> visible dans l'inspecteur du navigateur.
+  </p>
+</div>

@@ -1,0 +1,18 @@
+<button type="button" class="skip-link" (click)="skipToContent()">Aller au contenu</button>
+
+<header class="app-header">
+  <ui-navbar-default brandName="MoovCampus" userInitials="LK" [links]="links" />
+</header>
+
+<main id="contenu" class="app-main" tabindex="-1">
+  <router-outlet />
+</main>
+
+<app-full-footer
+  brandName="MoovCampus"
+  description="L'application qui mesure le CO₂ que tu évites en allant en cours autrement, et qui fait gagner des points à ton campus."
+  credit="Réalisé par Cheick Mohamed Diakite pour le LibraryUI Challenge."
+  [columns]="footerColumns"
+  [socialLinks]="socials"
+  [bottomLinks]="bottomLinks"
+/>

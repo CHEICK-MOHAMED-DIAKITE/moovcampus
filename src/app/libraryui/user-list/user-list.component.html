@@ -1,0 +1,111 @@
+<div class="user-list-page" data-libraryui="user-list · list">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h2>{{ heading() }}</h2>
+      <p>{{ subheading() }}</p>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="search-box">
+      <i class="bi bi-search" aria-hidden="true"></i>
+      <input
+        type="text"
+        [ngModel]="searchQuery()"
+        (ngModelChange)="searchQuery.set($event); onFilterChange()"
+        placeholder="Rechercher un étudiant ou une filière…"
+        aria-label="Rechercher un étudiant"
+      >
+    </div>
+
+    <div class="filters">
+      <select [ngModel]="selectedCampus()" (ngModelChange)="selectedCampus.set($event); onFilterChange()" aria-label="Filtrer par campus">
+        <option value="">Tous les campus</option>
+        <option *ngFor="let c of campuses()" [value]="c">{{ c }}</option>
+      </select>
+      <select [ngModel]="selectedMode()" (ngModelChange)="selectedMode.set($event); onFilterChange()" aria-label="Filtrer par mode favori">
+        <option *ngFor="let m of modes" [value]="m.value">{{ m.label }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- User List -->
+  <div class="user-list-container">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th class="rank-cell" scope="col">Rang</th>
+          <th scope="col">Étudiant</th>
+          <th class="hide-md" scope="col">Mode favori</th>
+          <th class="hide-lg" scope="col">Campus</th>
+          <th class="hide-lg" scope="col">Statut</th>
+          <th class="num-cell" scope="col">Points</th>
+          <th class="num-cell hide-sm" scope="col">CO₂ évité</th>
+          <th class="actions-cell" scope="col"><span class="visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of pagedUsers()" [class.selected]="user.isMe">
+          <td class="rank-cell">
+            <span class="rank" [ngClass]="medal(user.rank) ? 'rank--' + medal(user.rank) : ''">{{ user.rank }}</span>
+          </td>
+          <td>
+            <div class="user-cell">
+              <div class="user-avatar">{{ user.avatar }}</div>
+              <div class="user-info">
+                <span class="user-name">{{ user.firstName }} {{ user.lastName }} <span *ngIf="user.isMe" class="me-tag">Toi</span></span>
+                <span class="user-email">{{ user.program }}</span>
+              </div>
+            </div>
+          </td>
+          <td class="hide-md">
+            <span class="role-badge" [ngClass]="getRoleClass(user.mode)">
+              <i class="bi" [ngClass]="getModeIcon(user.mode)" aria-hidden="true"></i>
+              {{ getModeLabel(user.mode) }}
+            </span>
+          </td>
+          <td class="hide-lg">{{ user.campus }}</td>
+          <td class="hide-lg">
+            <span class="status-badge" [ngClass]="getStatusClass(user.status)">
+              <span class="status-dot"></span>
+              {{ getStatusLabel(user.status) }}
+            </span>
+          </td>
+          <td class="num-cell points">{{ user.points | number:'1.0-0' }}</td>
+          <td class="num-cell hide-sm last-active">{{ user.co2 | number:'1.1-1' }} kg</td>
+          <td class="actions-cell">
+            <div class="action-buttons">
+              <button class="action-btn" type="button"
+                      [class.action-btn--on]="isCheered(user)"
+                      [attr.aria-pressed]="isCheered(user)"
+                      [attr.aria-label]="'Encourager ' + user.firstName"
+                      [title]="isCheered(user) ? 'Encouragé !' : 'Encourager'"
+                      (click)="onCheer(user)">
+                <i class="bi" [ngClass]="isCheered(user) ? 'bi-hand-thumbs-up-fill' : 'bi-hand-thumbs-up'"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredUsers().length === 0" class="empty-state">
+      <i class="bi bi-people"></i>
+      <h3>Personne ne correspond à ces filtres</h3>
+      <p>Choisis un autre campus ou un autre mode pour élargir le classement.</p>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <span class="pagination-info">{{ filteredUsers().length }} étudiant(s) sur {{ users().length }}</span>
+    <div class="pagination-controls">
+      <button class="page-btn" type="button" [disabled]="page() === 1" (click)="goTo(page() - 1)" aria-label="Page précédente"><i class="bi bi-chevron-left"></i></button>
+      <button *ngFor="let p of pages()" class="page-btn" type="button" [class.active]="p === page()" [attr.aria-current]="p === page() ? 'page' : null" (click)="goTo(p)">{{ p }}</button>
+      <button class="page-btn" type="button" [disabled]="page() === pageCount()" (click)="goTo(page() + 1)" aria-label="Page suivante"><i class="bi bi-chevron-right"></i></button>
+    </div>
+  </div>
+</div>

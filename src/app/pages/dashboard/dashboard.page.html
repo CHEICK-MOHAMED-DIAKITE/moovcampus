@@ -1,0 +1,129 @@
+<div class="mc-container">
+  <div class="mc-page-head">
+    <div>
+      <h1>Bonjour Léa</h1>
+      <p>Voici ton impact depuis le 1er octobre.</p>
+    </div>
+    <button type="button" class="mc-btn mc-btn--primary" (click)="openForm()">
+      <i class="bi bi-plus-lg" aria-hidden="true"></i> Déclarer un trajet
+    </button>
+  </div>
+
+  <ui-kpi-cards-basic [basicKPIs]="kpis()" />
+
+  <div class="dash-grid">
+    <ui-bar-chart-repartition
+      title="Tes kilomètres par mode"
+      subtitle="Octobre, tous trajets confondus"
+      unit="km"
+      [data]="chartData()"
+    />
+
+    <section class="goal" aria-labelledby="goal-title">
+      <h2 id="goal-title">Objectif du mois</h2>
+      <p class="goal__sub">{{ goal }} kg de CO₂ évités avant le 31 octobre</p>
+
+      <div class="goal__ring">
+        <svg viewBox="0 0 120 120" role="img" [attr.aria-label]="goalPct() + ' % de l\'objectif atteint'">
+          <circle cx="60" cy="60" r="48" class="goal__track" />
+          <circle cx="60" cy="60" r="48" class="goal__bar" [style.stroke-dashoffset]="ringOffset()" />
+        </svg>
+        <div class="goal__value">
+          <strong>{{ goalPct() }} %</strong>
+          <span>atteint</span>
+        </div>
+      </div>
+
+      @if (goalLeft() > 0) {
+        <p class="goal__hint">Encore <strong>{{ goalLeft() | number:'1.1-1' }} kg</strong>, soit environ {{ goalLeft() / 1.2 | number:'1.0-0' }} trajets de 6 km à vélo.</p>
+      } @else {
+        <p class="goal__hint goal__hint--done"><i class="bi bi-check-circle-fill"></i> Objectif atteint, bravo !</p>
+      }
+
+      <div class="goal__tree">
+        <i class="bi bi-tree-fill" aria-hidden="true"></i>
+        <span>Ton CO₂ évité équivaut à ce qu'absorbent <strong>{{ trees() | number:'1.1-1' }} arbres</strong> en un an.</span>
+      </div>
+    </section>
+  </div>
+
+  <ui-activity-history
+    heading="Mes trajets"
+    subheading="Tous tes trajets déclarés, du plus récent au plus ancien."
+    actionLabel="Déclarer un trajet"
+    [trips]="trips()"
+    [highlightId]="lastTripId()"
+    (action)="openForm()"
+  />
+</div>
+
+<!-- Formulaire : Modal V1 de LibraryUI avec contenu projeté -->
+<app-modal-1
+  [open]="formOpen()"
+  [wide]="true"
+  tone="brand"
+  icon="bi-signpost-split"
+  title="Déclarer un trajet"
+  text="Indique comment tu es venu. Le CO₂ évité et tes points sont calculés tout de suite."
+  [showButtons]="false"
+  (closed)="formOpen.set(false)"
+>
+  <form class="trip-form" (ngSubmit)="saveTrip()" novalidate>
+    <fieldset class="trip-form__modes">
+      <legend>Mode de transport</legend>
+      <div class="mode-grid">
+        @for (m of modes; track m.id) {
+          <label class="mode-chip" [class.mode-chip--on]="form.mode === m.id" [style.--chip]="m.color">
+            <input type="radio" name="mode" [value]="m.id" [(ngModel)]="form.mode">
+            <i class="bi" [class]="m.icon" aria-hidden="true"></i>
+            <span>{{ m.label }}</span>
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    <div class="trip-form__row">
+      <label class="field">
+        <span>Départ</span>
+        <input type="text" name="from" [(ngModel)]="form.from" placeholder="Ex. Ivry-sur-Seine" autocomplete="off"
+               [attr.aria-invalid]="submitted && form.from.trim().length < 2">
+        @if (submitted && form.from.trim().length < 2) { <small class="field__error">Indique ton point de départ.</small> }
+      </label>
+      <label class="field">
+        <span>Arrivée</span>
+        <input type="text" name="to" [(ngModel)]="form.to" placeholder="Ex. Campus Villejuif" autocomplete="off"
+               [attr.aria-invalid]="submitted && form.to.trim().length < 2">
+        @if (submitted && form.to.trim().length < 2) { <small class="field__error">Indique ton point d'arrivée.</small> }
+      </label>
+    </div>
+
+    <label class="field field--km">
+      <span>Distance (km)</span>
+      <input type="number" name="km" min="0.1" max="200" step="0.1" [(ngModel)]="form.km" inputmode="decimal"
+             [attr.aria-invalid]="submitted && !(form.km > 0 && form.km <= 200)">
+      @if (submitted && !(form.km > 0 && form.km <= 200)) { <small class="field__error">Entre une distance entre 0,1 et 200 km.</small> }
+    </label>
+
+    <div class="trip-form__preview" aria-live="polite">
+      <span><i class="bi bi-cloud-check"></i> <strong>{{ previewCo2() * 1000 | number:'1.0-0' }} g</strong> de CO₂ évités</span>
+      <span><i class="bi bi-trophy"></i> <strong>+{{ previewPoints() }}</strong> points</span>
+    </div>
+
+    <div class="trip-form__actions">
+      <button type="button" class="mc-btn mc-btn--ghost" (click)="formOpen.set(false)">Annuler</button>
+      <button type="submit" class="mc-btn mc-btn--primary">Enregistrer le trajet</button>
+    </div>
+  </form>
+</app-modal-1>
+
+<!-- Confirmation : Modal V1 de LibraryUI -->
+<app-modal-1
+  [open]="successOpen()"
+  icon="bi-check-circle-fill"
+  title="Trajet enregistré !"
+  [text]="successText()"
+  cancelLabel="Fermer"
+  confirmLabel="Voir mon historique"
+  (closed)="successOpen.set(false)"
+  (confirmed)="successOpen.set(false)"
+/>

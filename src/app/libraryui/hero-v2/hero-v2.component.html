@@ -1,0 +1,31 @@
+<section class="hero1" data-libraryui="hero · Hero v-2">
+  @if (badge()) {
+    <div class="hero1__badge"><i class="bi bi-stars"></i> {{ badge() }}</div>
+  }
+  <h1>{{ titleLine() }}<br><span>{{ titleAccent() }}</span></h1>
+  <p>{{ text() }}</p>
+  <div class="hero1__actions">
+    @if (primary(); as a) {
+      <a [routerLink]="a.path" [queryParams]="a.query" class="hero1__btn hero1__btn--primary"><i class="bi" [class]="a.icon"></i> {{ a.label }}</a>
+    }
+    @if (secondary(); as a) {
+      <a [routerLink]="a.path" [queryParams]="a.query" class="hero1__btn hero1__btn--ghost"><i class="bi" [class]="a.icon"></i> {{ a.label }}</a>
+    }
+  </div>
+  @if (stats().length) {
+    <div class="hero1__stats">
+      @for (s of stats(); track s.label; let last = $last) {
+        <div><strong>{{ s.value }}</strong><span>{{ s.label }}</span></div>
+        @if (!last) { <div class="hero1__sep" aria-hidden="true"></div> }
+      }
+    </div>
+  }
+  <div class="hero1__mockup">
+    <div class="hero1__browser">
+      <div class="hero1__dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="hero1__screen" role="img" [attr.aria-label]="screenLabel()">
+        <ng-content />
+      </div>
+    </div>
+  </div>
+</section>

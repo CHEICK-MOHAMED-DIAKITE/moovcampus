@@ -1,0 +1,140 @@
+/* Styles d'origine LibraryUI (Graphe repartition / Bar chart), recolorés pour MoovCampus */
+:host {
+  display: block;
+  height: 100%;
+  font-family: var(--mc-font-body);
+}
+
+.failure-card {
+  --card: #ffffff;
+  --border: var(--mc-line);
+  --navy: var(--mc-ink);
+  --label-bg: #eef3ef;
+  --label-text: #44524b;
+  --track-bg: #e7ede9;
+  --accent-blue: var(--mc-green);
+  --scrollbar-thumb: #c7d2cb;
+  --scrollbar-thumb-hover: #aebbb3;
+
+  height: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.failure-card__title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 6px;
+}
+
+.failure-card__subtitle {
+  font-size: 14px;
+  color: var(--mc-muted);
+  margin: 0 0 22px;
+}
+
+.failure-list {
+  margin: 0;
+  padding-right: 10px;
+  max-height: 460px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+}
+
+.failure-row {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  transition: background-color 0.15s ease;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background: rgba(31, 138, 91, 0.04);
+  }
+}
+
+.failure-row__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.failure-row__label {
+  background: var(--label-bg);
+  color: var(--label-text);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 65%;
+}
+
+.failure-row__value {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.failure-row__track {
+  height: 15px;
+  background: var(--track-bg);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.failure-row__fill {
+  height: 100%;
+  background: var(--accent-blue);
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 575.98px) {
+  .failure-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .failure-list {
+    max-height: 360px;
+  }
+
+  .failure-card__title {
+    font-size: 16px;
+  }
+}

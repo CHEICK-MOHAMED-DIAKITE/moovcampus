@@ -1,0 +1,103 @@
+:host { display: block; }
+
+.mc-section--tight { padding-top: 1rem; }
+.mc-section--last { padding-bottom: 1rem; }
+
+.mc-section--tinted {
+  background: #e9f1ec;
+  border-top: 1px solid var(--mc-line);
+  border-bottom: 1px solid var(--mc-line);
+}
+
+.mc-section__head--row {
+  max-width: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* « Comment ça marche » : vraie séquence, donc numérotée, reliée par une ligne de trajet */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 8%;
+    right: 8%;
+    height: 4px;
+    border-radius: 4px;
+    background: repeating-linear-gradient(90deg, var(--mc-green) 0 18px, transparent 18px 30px);
+    opacity: 0.35;
+  }
+}
+
+.step {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--mc-line);
+  border-radius: 18px;
+  padding: 1.5rem 1.5rem 1.6rem;
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin: 0.9rem 0 0.4rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--mc-muted);
+    line-height: 1.6;
+  }
+}
+
+.step__num {
+  position: absolute;
+  top: -1px;
+  right: 1.25rem;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--mc-yellow);
+  color: #3d2e00;
+  font-family: var(--mc-font-display);
+  font-weight: 800;
+  border: 3px solid var(--mc-bg);
+}
+
+.step__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--mc-green-soft);
+  color: var(--mc-green);
+  font-size: 1.35rem;
+}
+
+@media (max-width: 860px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    &::before { display: none; }
+  }
+}
+
+@media (max-width: 600px) {
+  .mc-section { padding: 3rem 0; }
+}

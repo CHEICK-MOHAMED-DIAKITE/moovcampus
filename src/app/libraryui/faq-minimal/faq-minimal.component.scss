@@ -1,0 +1,185 @@
+/* Styles d'origine LibraryUI (Faq « Frequently Asked Questions »), recolorés pour MoovCampus */
+$red:      #1f8a5b;   // devient le vert de la charte
+$red-dark: #156b45;
+$text:     #16231d;
+$text-lt:  #4b5a52;
+$muted:    #888;
+$border:   #dfe7e1;
+$white:    #ffffff;
+$t:        .18s ease;
+
+:host {
+  display: block;
+  font-family: var(--mc-font-body);
+}
+
+.fm {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3.5rem 4rem 4rem;
+  overflow: hidden;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 24px;
+
+  @media (max-width: 900px) { padding: 2.5rem 1.5rem 2.5rem; }
+  @media (max-width: 480px) { padding: 2rem 1rem; border-radius: 18px; }
+}
+
+// DECORATIVE BLOBS
+.fm__blob {
+  position: absolute;
+  pointer-events: none;
+  line-height: 0;
+
+  &--teal {
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .85;
+
+    @media (max-width: 900px) { display: none; }
+  }
+
+  &--orange {
+    top: 2.5rem;
+    right: 2rem;
+    opacity: .9;
+
+    @media (max-width: 480px) { top: 1.5rem; right: 1rem; transform: scale(.7); }
+  }
+}
+
+// TITLE
+.fm__title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: $text;
+  line-height: 1.1;
+  margin-bottom: 2.5rem;
+  max-width: 460px;
+}
+
+// BODY GRID
+.fm__body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  align-items: start;
+
+  @media (max-width: 820px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ACCORDION LIST
+.fm__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.fm__item {
+  border: 1px solid $border;
+  border-radius: 10px;
+  margin-bottom: .65rem;
+  background: $white;
+  transition: box-shadow $t, border-color $t;
+
+  &--open {
+    border-color: #b9d6c6;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+}
+
+.fm__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.05rem 1.15rem;
+  font: inherit;
+  font-size: .98rem;
+  font-weight: 700;
+  color: $text;
+  gap: 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fm__toggle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid $border;
+  background: $white;
+  color: $text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color $t, background $t, color $t;
+
+  .fm__item--open & {
+    border-color: $red;
+    background: $red;
+    color: $white;
+  }
+}
+
+.fm__answer {
+  font-size: .92rem;
+  color: $text-lt;
+  line-height: 1.7;
+  padding: 0 1.15rem 1.1rem;
+}
+
+// CONTACT CARD
+.fm__contact {
+  border: 1px solid $border;
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: #f7faf8;
+}
+
+.fm__contact-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  line-height: 0;
+}
+
+.fm__contact-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: $text;
+  margin-bottom: .65rem;
+  line-height: 1.35;
+}
+
+.fm__contact-desc {
+  font-size: .88rem;
+  color: $text-lt;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.fm__contact-btn {
+  display: block;
+  background: $red;
+  color: $white;
+  border-radius: 8px;
+  padding: .8rem 1rem;
+  font-size: .9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background $t;
+
+  &:hover { background: $red-dark; color: $white; }
+}

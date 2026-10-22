@@ -1,0 +1,79 @@
+/* Styles d'origine LibraryUI (Call to action V1), recolorés pour MoovCampus */
+:host { display: block; }
+
+.cta1 {
+  position: relative;
+  overflow: hidden;
+  background: var(--mc-gradient);
+  border-radius: 28px;
+  padding: 5rem 2rem;
+  text-align: center;
+  font-family: var(--mc-font-body);
+}
+.cta1__route {
+  position: absolute;
+  inset: auto 0 0 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.cta1__inner {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.cta1__inner h2 {
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 1.25rem;
+  line-height: 1.15;
+}
+.cta1__inner p {
+  font-size: 1.08rem;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 2.5rem;
+  line-height: 1.7;
+}
+.cta1__btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.cta1__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 0.875rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.cta1__btn--primary {
+  background: #fff;
+  color: var(--mc-green-dark);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.cta1__btn--primary:hover {
+  color: var(--mc-green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+.cta1__btn--ghost {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(4px);
+}
+.cta1__btn--ghost:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 560px) {
+  .cta1 { padding: 3.5rem 1.25rem; border-radius: 20px; }
+  .cta1__btn { width: 100%; justify-content: center; }
+}

@@ -1,0 +1,113 @@
+<div class="activity-history" data-libraryui="activity-history · Historique">
+  <!-- Header -->
+  <div class="activity-header">
+    <div class="header-content">
+      <h2>{{ heading() }}</h2>
+      <p>{{ subheading() }}</p>
+    </div>
+    <button class="btn btn--primary" type="button" (click)="action.emit()">
+      <i class="bi bi-plus-lg"></i>
+      {{ actionLabel() }}
+    </button>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="search-box">
+      <i class="bi bi-search" aria-hidden="true"></i>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Rechercher un lieu, un mode…"
+        aria-label="Rechercher un trajet"
+      >
+    </div>
+
+    <div class="filter-tabs" role="group" aria-label="Filtrer par mode">
+      <button
+        *ngFor="let filter of filters"
+        type="button"
+        class="filter-tab"
+        [class.active]="selectedFilter === filter.value"
+        [attr.aria-pressed]="selectedFilter === filter.value"
+        (click)="selectedFilter = filter.value"
+      >
+        {{ filter.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Activity Timeline -->
+  <div class="timeline-container">
+    <ng-container *ngFor="let group of groupByDate(getVisibleActivities())">
+      <div class="date-group">
+        <div class="date-header">
+          <span class="date-label">{{ group.date }}</span>
+          <span class="date-count">{{ group.items.length }} trajet(s)</span>
+        </div>
+
+        <div class="timeline">
+          <div
+            *ngFor="let activity of group.items; trackBy: trackById"
+            class="timeline-item"
+            [class.timeline-item--new]="activity.isNew"
+            [ngClass]="getActivityClass(activity.type)"
+          >
+            <div class="timeline-marker">
+              <div class="marker-icon">
+                <i class="bi" [ngClass]="getActivityIcon(activity.type)"></i>
+              </div>
+              <div class="marker-line"></div>
+            </div>
+
+            <div class="timeline-content">
+              <div class="activity-card">
+                <div class="card-header">
+                  <h3 class="activity-title">{{ activity.title }}</h3>
+                  <span class="activity-time">{{ getRelativeTime(activity.timestamp) }}</span>
+                </div>
+
+                <p class="activity-description">{{ activity.description }}</p>
+
+                <!-- Metadata -->
+                <div class="activity-metadata" *ngIf="activity.metadata">
+                  <div class="meta-item" *ngIf="activity.metadata.distance">
+                    <i class="bi bi-signpost-split"></i>
+                    <span>{{ activity.metadata.distance | number:'1.0-1':'fr-FR' }} km</span>
+                  </div>
+                  <div class="meta-item" *ngIf="activity.metadata.co2">
+                    <i class="bi bi-cloud-check"></i>
+                    <span>{{ activity.metadata.co2 | number:'1.2-2':'fr-FR' }} kg CO₂ évités</span>
+                  </div>
+                  <div class="meta-item meta-item--amount" *ngIf="activity.metadata.points">
+                    <i class="bi bi-trophy"></i>
+                    <span>+{{ activity.metadata.points }} points</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Empty State -->
+    <div *ngIf="getFilteredActivities().length === 0" class="empty-state">
+      <i class="bi bi-clock-history"></i>
+      <h3>Aucun trajet pour ce filtre</h3>
+      <p>Change de mode ou efface ta recherche pour revoir tous tes trajets.</p>
+      <button class="btn btn--primary" type="button" (click)="clearFilters()">
+        <i class="bi bi-funnel"></i>
+        Réinitialiser les filtres
+      </button>
+    </div>
+  </div>
+
+  <!-- Load More -->
+  <div class="load-more" *ngIf="getFilteredActivities().length > limit()">
+    <button class="btn btn--outline btn--lg" type="button" (click)="loadMore()">
+      <i class="bi bi-arrow-down-circle"></i>
+      Charger plus de trajets
+    </button>
+  </div>
+</div>

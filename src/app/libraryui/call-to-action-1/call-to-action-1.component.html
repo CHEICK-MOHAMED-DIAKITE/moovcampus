@@ -1,0 +1,17 @@
+<section class="cta1" data-libraryui="call-to-action · V1">
+  <svg class="cta1__route" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-20 150 C 200 150, 260 60, 460 60 S 760 160, 960 120 S 1160 40, 1240 50" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 22"/>
+  </svg>
+  <div class="cta1__inner">
+    <h2>{{ title() }}</h2>
+    <p>{{ text() }}</p>
+    <div class="cta1__btns">
+      @if (primary(); as a) {
+        <a [routerLink]="a.path" [queryParams]="a.query" class="cta1__btn cta1__btn--primary">{{ a.label }}</a>
+      }
+      @if (secondary(); as a) {
+        <a [routerLink]="a.path" [queryParams]="a.query" class="cta1__btn cta1__btn--ghost">{{ a.label }}</a>
+      }
+    </div>
+  </div>
+</section>

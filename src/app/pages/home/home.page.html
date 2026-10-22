@@ -1,0 +1,78 @@
+<ui-hero-v2
+  badge="Nouveau : le défi vélotaf d'octobre est lancé"
+  titleLine="Chaque trajet vers le campus"
+  titleAccent="compte pour la planète."
+  text="MoovCampus calcule le CO₂ que tu évites à vélo, à pied, en transports ou en covoiturage, et transforme chacun de tes trajets en points pour ton campus."
+  [primary]="{ label: 'Déclarer un trajet', icon: 'bi-plus-lg', path: '/tableau-de-bord', query: { declarer: '1' } }"
+  [secondary]="{ label: 'Voir le classement', icon: 'bi-trophy', path: '/communaute' }"
+  [stats]="heroStats"
+  screenLabel="Exemple de trajet : 5,9 km à vélo jusqu'au campus, 1,18 kg de CO₂ évités, 79 points gagnés"
+>
+  <mc-route-preview />
+</ui-hero-v2>
+
+<section class="mc-section mc-section--tight">
+  <div class="mc-container">
+    <div class="mc-section__head">
+      <h2>L'impact de la communauté ce mois-ci</h2>
+      <p>Les chiffres de tous les campus, mis à jour chaque nuit.</p>
+    </div>
+    <ui-kpi-cards-basic [basicKPIs]="impact" />
+  </div>
+</section>
+
+<section class="mc-section">
+  <div class="mc-container">
+    <div class="mc-section__head">
+      <h2>Comment ça marche</h2>
+      <p>Pas de capteur ni de GPS : tu déclares, on calcule.</p>
+    </div>
+    <ol class="steps">
+      @for (step of steps; track step.title; let i = $index) {
+        <li class="step">
+          <span class="step__num" aria-hidden="true">{{ i + 1 }}</span>
+          <i class="bi step__icon" [class]="step.icon" aria-hidden="true"></i>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<section class="mc-section mc-section--tinted">
+  <div class="mc-container">
+    <div class="mc-section__head mc-section__head--row">
+      <div>
+        <h2>Les défis du moment</h2>
+        <p>Rejoins un défi pour gagner des points bonus avec ton campus.</p>
+      </div>
+      <a routerLink="/communaute" class="mc-btn mc-btn--ghost">Tous les défis</a>
+    </div>
+    <app-event-card [events]="challenges" />
+  </div>
+</section>
+
+<section class="mc-section" id="faq">
+  <div class="mc-container">
+    <app-faq-minimal
+      heading="Questions fréquentes"
+      [questions]="faq"
+      contactTitle="Une autre question ?"
+      contactText="L'équipe MoovCampus répond en général dans la journée, même pendant les partiels."
+      contactLabel="Écrire à l'équipe"
+      contactHref="mailto:contact@moovcampus.fr"
+    />
+  </div>
+</section>
+
+<section class="mc-section mc-section--last">
+  <div class="mc-container">
+    <app-call-to-action-1
+      title="Ton prochain trajet peut rapporter des points à ton campus."
+      text="Déclare-le en dix secondes et regarde ton compteur de CO₂ évité grimper."
+      [primary]="{ label: 'Ouvrir mon tableau de bord', path: '/tableau-de-bord' }"
+      [secondary]="{ label: 'Voir le classement', path: '/communaute' }"
+    />
+  </div>
+</section>

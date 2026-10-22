@@ -1,0 +1,128 @@
+:host { display: block; }
+
+.cmp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cmp {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.25rem;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--mc-line);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+}
+
+.cmp__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--mc-green-soft);
+  color: var(--mc-green);
+  font-size: 1.35rem;
+}
+
+.cmp__body {
+  min-width: 0;
+
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin: 0 0 0.25rem;
+  }
+
+  p {
+    margin: 0 0 0.6rem;
+    color: var(--mc-muted);
+  }
+}
+
+.cmp__style {
+  font-family: var(--mc-font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--mc-muted);
+  margin-left: 0.25rem;
+}
+
+.cmp__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--mc-muted);
+
+  code {
+    background: #f1f5f2;
+    color: var(--mc-green-dark);
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+  }
+
+  a { font-weight: 600; }
+}
+
+.cmp__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cmp__link {
+  display: inline-flex;
+  justify-content: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid var(--mc-line);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--mc-ink);
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover { border-color: var(--mc-green); color: var(--mc-green); }
+
+  &--lib {
+    background: var(--mc-ink);
+    border-color: var(--mc-ink);
+    color: #fff;
+
+    &:hover { background: var(--mc-green); border-color: var(--mc-green); color: #fff; }
+  }
+}
+
+.cmp-note {
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background: var(--mc-yellow-soft);
+  color: #5c4500;
+  font-size: 0.92rem;
+  line-height: 1.6;
+
+  code { color: #5c4500; background: rgba(255, 255, 255, 0.6); padding: 0.1rem 0.35rem; border-radius: 5px; }
+}
+
+@media (max-width: 720px) {
+  .cmp {
+    grid-template-columns: auto 1fr;
+    padding: 1.1rem;
+  }
+
+  .cmp__links {
+    grid-column: 1 / -1;
+    flex-direction: row;
+
+    .cmp__link { flex: 1; }
+  }
+}

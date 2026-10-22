@@ -1,0 +1,111 @@
+<div class="event-card-list" data-libraryui="cards · Event card">
+  @for (event of events(); track event.id) {
+    <article class="event-card" [class.event-card--joined]="isJoined(event)">
+      <div class="event-card__top d-flex justify-content-between align-items-start gap-3">
+        <div class="event-card__main">
+          <div class="event-card__meta d-flex align-items-center flex-wrap gap-3">
+            <span class="event-card__meta-item d-flex align-items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4.5" width="18" height="17" rx="2.5" />
+                <path d="M16 2.5v4M8 2.5v4M3 10h18" />
+              </svg>
+              <span>{{ event.date }}</span>
+            </span>
+
+            <span class="event-card__meta-item d-flex align-items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5.2l3.2 1.9" />
+              </svg>
+              <span>{{ event.time }}</span>
+            </span>
+          </div>
+
+          <h3 class="event-card__title">{{ event.title }}</h3>
+
+          <p class="event-card__location d-flex align-items-center gap-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" />
+              <circle cx="12" cy="9.5" r="2.5" />
+            </svg>
+            <span>{{ event.location }}</span>
+          </p>
+
+          @if (event.attendees?.length) {
+            <div class="event-card__attendees d-flex align-items-center gap-3">
+              <div class="event-card__avatars d-flex align-items-center">
+                @for (attendee of event.attendees; track attendee.initials) {
+                  <span class="event-card__avatar" [style.background]="attendee.background">{{ attendee.initials }}</span>
+                }
+              </div>
+              <p class="event-card__attendees-text">
+                <strong>{{ event.attendeesCountLabel }}</strong> {{ event.attendeesSuffix }}
+              </p>
+            </div>
+          }
+
+          @if (event.status) {
+            <span class="event-card__status d-inline-flex align-items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" />
+                <path d="M14 2.5V8h5.5" />
+              </svg>
+              <span>{{ event.status }}</span>
+            </span>
+          }
+        </div>
+
+        <div class="event-card__figures">
+          <p class="event-card__amount" [class.event-card__amount--positive]="event.amountPositive">{{ event.amount }}</p>
+          <div class="event-card__trend d-flex align-items-center justify-content-end gap-2">
+            <span class="event-card__trend-label">{{ event.trendLabel }}</span>
+            <span
+              class="event-card__trend-badge d-inline-flex align-items-center gap-1"
+              [class.event-card__trend-badge--up]="event.trendDirection === 'up'"
+              [class.event-card__trend-badge--down]="event.trendDirection === 'down'"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                @switch (event.trendDirection) {
+                  @case ('up') {
+                    <path d="M22 7.5l-8.5 8.5-5-5L2 16.5" />
+                    <path d="M16 7.5h6v6" />
+                  }
+                  @case ('down') {
+                    <path d="M22 16.5l-8.5-8.5-5 5L2 7.5" />
+                    <path d="M16 16.5h6v-6" />
+                  }
+                  @default {
+                    <path d="M5 12h14" />
+                  }
+                }
+              </svg>
+              <span>{{ event.trendValue }}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card__actions d-flex align-items-center flex-wrap gap-2">
+        @if (event.showPublish) {
+          <button type="button" class="event-card__btn event-card__btn--publish d-inline-flex align-items-center gap-2" [attr.aria-pressed]="isJoined(event)" (click)="onJoin(event)">
+            <i class="bi" [class.bi-calendar-plus]="!isJoined(event)" [class.bi-check2]="isJoined(event)" aria-hidden="true"></i>
+            <span>{{ isJoined(event) ? joinedLabel() : publishLabel() }}</span>
+          </button>
+        } @else {
+          <button type="button" class="event-card__btn event-card__btn--publish d-inline-flex align-items-center gap-2" [attr.aria-pressed]="isJoined(event)" (click)="onJoin(event)">
+            <i class="bi" [class.bi-flag-fill]="!isJoined(event)" [class.bi-check2]="isJoined(event)" aria-hidden="true"></i>
+            <span>{{ isJoined(event) ? joinedLabel() : editLabel() }}</span>
+          </button>
+        }
+
+        <button type="button" class="event-card__btn d-inline-flex align-items-center gap-2" (click)="onCopyLink(event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="12" height="12" rx="2.5" />
+            <path d="M5.5 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v.5" />
+          </svg>
+          <span>{{ isCopied(event) ? copiedLabel() : copyLabel() }}</span>
+        </button>
+      </div>
+    </article>
+  }
+</div>

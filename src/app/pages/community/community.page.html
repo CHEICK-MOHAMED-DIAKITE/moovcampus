@@ -1,0 +1,36 @@
+<div class="mc-container">
+  <div class="mc-page-head">
+    <div>
+      <h1>Classement et défis</h1>
+      <p>Qui évite le plus de CO₂ ce mois-ci, étudiant par étudiant et campus par campus.</p>
+    </div>
+  </div>
+
+  <div class="community-grid">
+    <div class="community-grid__main">
+      <ui-user-list
+        heading="Classement des étudiants"
+        subheading="Points cumulés depuis le 1er octobre. Encourage celles et ceux qui pédalent !"
+        [campuses]="campuses"
+        [users]="users()"
+      />
+    </div>
+
+    <aside class="community-grid__side">
+      <ui-bar-chart-repartition
+        title="CO₂ évité par campus"
+        subtitle="Octobre, en kilogrammes"
+        unit="kg"
+        [data]="campusData"
+      />
+    </aside>
+  </div>
+
+  <section class="challenges" aria-labelledby="defis-title">
+    <div class="mc-section__head">
+      <h2 id="defis-title">Les défis</h2>
+      <p>Chaque défi rapporte des points bonus à toi et à ton campus.</p>
+    </div>
+    <app-event-card [events]="challenges" />
+  </section>
+</div>

@@ -1,0 +1,61 @@
+<div class="fm" data-libraryui="faq · Frequently Asked Questions">
+
+  <!-- Decorative blobs -->
+  <div class="fm__blob fm__blob--teal" aria-hidden="true">
+    <svg width="48" height="48" viewBox="0 0 60 60" fill="none">
+      <path d="M30 5 C10 5, 5 20, 5 30 C5 50, 20 55, 30 55 C40 55, 45 45, 40 30 C38 18, 45 5, 30 5Z" fill="#7fd1b3"/>
+    </svg>
+  </div>
+  <div class="fm__blob fm__blob--orange" aria-hidden="true">
+    <svg width="52" height="62" viewBox="0 0 60 75" fill="none">
+      <path d="M45 5 C55 15, 58 30, 50 45 C42 60, 25 68, 15 58 C5 48, 8 28, 20 15 C30 4, 38 -2, 45 5Z" fill="#f2c230"/>
+    </svg>
+  </div>
+
+  <!-- Title -->
+  <h2 class="fm__title">{{ heading() }}</h2>
+
+  <!-- Body: accordion + contact card -->
+  <div class="fm__body">
+
+    <!-- Accordion list -->
+    <div class="fm__list">
+      <div
+        *ngFor="let item of items(); let i = index"
+        class="fm__item"
+        [class.fm__item--open]="item.open"
+      >
+        <button type="button" class="fm__question" [attr.aria-expanded]="item.open" [attr.aria-controls]="'fm-answer-' + i" (click)="toggle(i)">
+          <span>{{ item.question }}</span>
+          <span class="fm__toggle" aria-hidden="true">
+            <svg *ngIf="!item.open" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <svg *ngIf="item.open" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="fm__answer" [id]="'fm-answer-' + i" *ngIf="item.open">
+          {{ item.answer }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact card -->
+    <aside class="fm__contact">
+      <div class="fm__contact-icon" aria-hidden="true">
+        <svg width="40" height="36" viewBox="0 0 40 36" fill="none">
+          <rect x="0" y="0" width="36" height="28" rx="4" fill="#16231d"/>
+          <path d="M32 28 L36 36 L20 28Z" fill="#16231d"/>
+          <circle cx="10" cy="14" r="2.5" fill="#f2c230"/><circle cx="18" cy="14" r="2.5" fill="#f2c230"/><circle cx="26" cy="14" r="2.5" fill="#f2c230"/>
+        </svg>
+      </div>
+      <h3 class="fm__contact-title">{{ contactTitle() }}</h3>
+      <p class="fm__contact-desc">{{ contactText() }}</p>
+      <a [href]="contactHref()" class="fm__contact-btn">{{ contactLabel() }}</a>
+    </aside>
+
+  </div>
+</div>

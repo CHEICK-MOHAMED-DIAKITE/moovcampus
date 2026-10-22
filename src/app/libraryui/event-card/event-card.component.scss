@@ -1,0 +1,277 @@
+/* Styles d'origine LibraryUI (Cards / Event card), recolorés pour MoovCampus + grille fluide */
+:host {
+  display: block;
+  font-family: var(--mc-font-body);
+
+  --card-bg: #ffffff;
+  --card-border: var(--mc-line);
+  --title-color: var(--mc-ink);
+  --muted-color: var(--mc-muted);
+  --amount-color: var(--mc-ink);
+  --amount-positive: var(--mc-green);
+  --badge-up-bg: var(--mc-green-soft);
+  --badge-up-text: var(--mc-green-dark);
+  --badge-flat-bg: #eef2ef;
+  --badge-flat-text: var(--mc-muted);
+  --badge-down-bg: #fde8e8;
+  --badge-down-text: #dc2626;
+  --btn-bg: #ffffff;
+  --btn-border: var(--mc-line);
+  --btn-text: var(--mc-ink);
+  --btn-hover-bg: #f4f7f5;
+  --publish-bg: var(--mc-ink);
+  --publish-text: #ffffff;
+  --focus-ring: var(--mc-yellow);
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.event-card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.event-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 26px 28px 26px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card--joined {
+  border-color: var(--mc-green);
+  box-shadow: 0 0 0 4px var(--mc-green-soft);
+}
+
+.event-card__main {
+  min-width: 0;
+}
+
+.event-card__meta {
+  color: var(--muted-color);
+  font-size: 13.5px;
+}
+
+.event-card__meta-item svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.event-card__title {
+  margin: 10px 0 0;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--title-color);
+}
+
+.event-card__location {
+  margin: 10px 0 0;
+  color: var(--muted-color);
+  font-size: 14px;
+}
+
+.event-card__location svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.event-card__attendees {
+  margin-top: 16px;
+}
+
+.event-card__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--card-bg);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.event-card__avatar + .event-card__avatar {
+  margin-left: -12px;
+}
+
+.event-card__attendees-text {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted-color);
+}
+
+.event-card__attendees-text strong {
+  color: var(--title-color);
+  font-weight: 700;
+}
+
+.event-card__status {
+  margin-top: 16px;
+  background: var(--mc-yellow-soft);
+  border: 1px solid #f3dd8f;
+  border-radius: 9px;
+  padding: 7px 13px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #6b5000;
+}
+
+.event-card__status svg {
+  width: 15px;
+  height: 15px;
+  color: #a17c00;
+}
+
+.event-card__figures {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.event-card__amount {
+  margin: 0;
+  font-family: var(--mc-font-display);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--amount-color);
+  white-space: nowrap;
+}
+
+.event-card__amount--positive {
+  color: var(--amount-positive);
+}
+
+.event-card__trend {
+  margin-top: 6px;
+}
+
+.event-card__trend-label {
+  font-size: 13.5px;
+  color: var(--muted-color);
+}
+
+.event-card__trend-badge {
+  background: var(--badge-flat-bg);
+  color: var(--badge-flat-text);
+  border-radius: 7px;
+  padding: 3px 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.event-card__trend-badge--up {
+  background: var(--badge-up-bg);
+  color: var(--badge-up-text);
+}
+
+.event-card__trend-badge--down {
+  background: var(--badge-down-bg);
+  color: var(--badge-down-text);
+}
+
+.event-card__trend-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+.event-card__actions {
+  margin-top: 24px;
+}
+
+.event-card__btn {
+  appearance: none;
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 10px;
+  padding: 11px 17px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--btn-text);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.event-card__btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.event-card__btn:hover {
+  background: var(--btn-hover-bg);
+}
+
+.event-card__btn:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.event-card__btn--publish {
+  background: var(--publish-bg);
+  border-color: var(--publish-bg);
+  color: var(--publish-text);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.event-card__btn--publish:hover {
+  background: #23362d;
+}
+
+.event-card--joined .event-card__btn--publish {
+  background: var(--mc-green);
+  border-color: var(--mc-green);
+}
+
+@media (max-width: 640px) {
+  .event-card {
+    padding: 20px;
+  }
+
+  .event-card__top {
+    flex-direction: column;
+  }
+
+  .event-card__figures {
+    text-align: left;
+  }
+
+  .event-card__trend {
+    justify-content: flex-start !important;
+  }
+
+  .event-card__title {
+    font-size: 21px;
+  }
+
+  .event-card__amount {
+    font-size: 26px;
+  }
+
+  .event-card__btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-card__btn {
+    transition: none;
+  }
+}

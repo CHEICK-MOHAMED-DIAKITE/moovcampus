@@ -1,0 +1,21 @@
+<div class="kpi-showcase" data-libraryui="kpi-card · Kpi basic">
+  @if (pageTitle()) { <h2 class="page-title">{{ pageTitle() }}</h2> }
+  @if (pageSubtitle()) { <p class="page-subtitle">{{ pageSubtitle() }}</p> }
+
+  <div class="kpi-grid">
+    <div *ngFor="let kpi of basicKPIs()" class="kpi-card kpi-card--basic">
+      <div class="kpi-card__icon" [ngClass]="'kpi-card__icon--' + kpi.iconColor">
+        <i class="bi" [ngClass]="kpi.icon"></i>
+      </div>
+      <div class="kpi-card__content">
+        <span class="kpi-card__title">{{ kpi.title }}</span>
+        <span class="kpi-card__value">{{ formatValue(kpi) }}</span>
+        <div class="kpi-card__change" *ngIf="kpi.change" [ngClass]="getChangeClass(kpi.change.type)">
+          <i class="bi" [ngClass]="getChangeIcon(kpi.change.type)"></i>
+          <span>{{ kpi.change.value > 0 ? '+' : '' }}{{ kpi.change.value }}%</span>
+          <span class="change-period">{{ kpi.change.period }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
