@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarDefaultComponent, NavLink } from './libraryui/navbar-default/navbar-default.component';
 import { FullFooter, FooterColumn, FooterLink, SocialLink } from './libraryui/full-footer/full-footer.component';
 
 import { REPO_URL } from './data/links';
+import { NewsletterService } from './data/newsletter.service';
 
 @Component({
   selector: 'app-root',
@@ -52,6 +53,23 @@ export class App {
     { icon: 'bi-instagram', href: 'https://www.instagram.com/', label: 'Instagram' },
     { icon: 'bi-tiktok', href: 'https://www.tiktok.com/', label: 'TikTok' }
   ];
+
+  private readonly newsletter = inject(NewsletterService);
+  protected readonly newsletterState = signal<'idle' | 'sending' | 'success' | 'error'>('idle');
+  protected readonly newsletterSuccess = this.newsletter.configured
+    ? 'C\'est noté ! Ton e-mail de bienvenue est en route.'
+    : 'Inscription confirmée. Rendez-vous le 1er du mois !';
+
+  async onSubscribe(email: string): Promise<void> {
+    this.newsletterState.set('sending');
+    try {
+      await this.newsletter.subscribe(email);
+      this.newsletterState.set('success');
+    } catch (err) {
+      console.error('Newsletter :', err);
+      this.newsletterState.set('error');
+    }
+  }
 
   skipToContent(): void {
     document.getElementById('contenu')?.focus();

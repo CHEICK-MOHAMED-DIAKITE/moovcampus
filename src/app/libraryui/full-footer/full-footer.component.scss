@@ -137,7 +137,26 @@
 }
 .newsletter-form {
   display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.newsletter-fields {
+  display: flex;
   gap: 0.5rem;
+}
+.newsletter-msg {
+  margin: 0;
+  min-height: 1.1em;
+  font-size: 0.82rem;
+  color: #ffb4a8;
+}
+.newsletter-form input[aria-invalid='true'] {
+  border-color: #ff8a7a;
+}
+.newsletter-form button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
 }
 .newsletter-form input {
   padding: 0.7rem 1rem;
@@ -220,7 +239,8 @@
     align-items: flex-start;
     padding: 1.5rem 1.25rem;
   }
-  .newsletter-form {
+  .newsletter-form,
+  .newsletter-fields {
     width: 100%;
     flex-direction: column;
   }

@@ -35,13 +35,22 @@
       <h4>Le défi du mois dans ta boîte mail</h4>
       <p>Un e-mail par mois avec le nouveau défi et le classement des campus. Pas de spam.</p>
     </div>
-    <form class="newsletter-form" (submit)="onSubscribe(); $event.preventDefault()">
-      @if (subscribed()) {
-        <p class="newsletter-ok" role="status"><i class="bi bi-check-circle-fill"></i> Inscription confirmée. Rendez-vous le 1er du mois !</p>
+    <form class="newsletter-form" (submit)="onSubscribe(); $event.preventDefault()" novalidate>
+      @if (newsletterState() === 'success') {
+        <p class="newsletter-ok" role="status"><i class="bi bi-check-circle-fill"></i> {{ successMessage() }}</p>
       } @else {
-        <label class="visually-hidden" for="newsletter-email">Adresse e-mail</label>
-        <input id="newsletter-email" type="email" placeholder="prenom@campus.fr" [(ngModel)]="newsletterEmail" name="newsletterEmail" required>
-        <button type="submit">M'inscrire</button>
+        <div class="newsletter-fields">
+          <label class="visually-hidden" for="newsletter-email">Adresse e-mail</label>
+          <input id="newsletter-email" type="email" placeholder="prenom@campus.fr" [(ngModel)]="newsletterEmail" name="newsletterEmail" required
+                 [attr.aria-invalid]="invalid" aria-describedby="newsletter-msg">
+          <button type="submit" [disabled]="newsletterState() === 'sending'">
+            {{ newsletterState() === 'sending' ? 'Envoi…' : 'M\'inscrire' }}
+          </button>
+        </div>
+        <p id="newsletter-msg" class="newsletter-msg" role="status">
+          @if (invalid) { Cette adresse e-mail n'est pas valide. }
+          @else if (newsletterState() === 'error') { L'envoi a échoué. Réessaie dans un instant. }
+        </p>
       }
     </form>
   </div>

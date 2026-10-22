@@ -15,4 +15,7 @@
   [columns]="footerColumns"
   [socialLinks]="socials"
   [bottomLinks]="bottomLinks"
+  [newsletterState]="newsletterState()"
+  [successMessage]="newsletterSuccess"
+  (subscribe)="onSubscribe($event)"
 />
