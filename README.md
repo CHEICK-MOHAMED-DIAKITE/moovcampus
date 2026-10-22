@@ -6,6 +6,12 @@ Projet réalisé pour le **LibraryUI Challenge 2026** avec Angular et les compos
 
 🔗 **Démo en ligne : https://cheick-mohamed-diakite.github.io/moovcampus/**
 
+![Page d'accueil de MoovCampus](docs/apercu-accueil.png)
+
+| Tableau de bord | Sur mobile |
+| --- | --- |
+| ![Tableau de bord](docs/apercu-tableau-de-bord.png) | ![Accueil, tableau de bord et classement sur mobile](docs/apercu-mobile.png) |
+
 ---
 
 ## L'idée
