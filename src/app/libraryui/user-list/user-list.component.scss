@@ -380,8 +380,28 @@
 }
 
 .pagination-info {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
   font-size: 0.9rem;
   color: var(--mc-muted);
+}
+
+.find-me {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #f3dd8f;
+  background: var(--mc-yellow-soft);
+  color: #5c4500;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover { background: #fbecbc; }
 }
 
 .pagination-controls {

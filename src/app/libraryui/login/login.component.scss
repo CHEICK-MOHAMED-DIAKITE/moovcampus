@@ -1,0 +1,16 @@
+/* Styles d'origine LibraryUI (Formulaire de connexion « Connexion »), partagés avec l'inscription */
+@use '../auth-shared/auth';
+
+.auth-container--login {
+  grid-template-columns: 1fr 1fr;
+  max-width: 1000px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+}
+
+.btn--social {
+  text-decoration: none;
+}

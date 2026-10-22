@@ -18,14 +18,30 @@
           {{ link.label }}
         </a>
       }
+      <!-- Accès compte dans le panneau mobile -->
+      <div class="nbar-mobile-auth">
+        @if (userInitials()) {
+          <button type="button" class="nbar-link" (click)="onLogout()"><i class="bi bi-box-arrow-right" aria-hidden="true"></i> Se déconnecter</button>
+        } @else {
+          <a routerLink="/connexion" class="nbar-link" routerLinkActive="active" (click)="closeMenu()"><i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Se connecter</a>
+        }
+      </div>
     </div>
 
     <div class="nbar-actions">
-      <button class="nbar-icon-btn" type="button" aria-label="Notifications : 2 nouvelles">
-        <i class="bi bi-bell"></i>
-        <span class="nbar-notif-dot"></span>
-      </button>
-      <a routerLink="/tableau-de-bord" class="nbar-avatar" aria-label="Mon profil" (click)="closeMenu()">{{ userInitials() }}</a>
+      @if (userInitials()) {
+        <button class="nbar-icon-btn" type="button" aria-label="Notifications : 2 nouvelles">
+          <i class="bi bi-bell"></i>
+          <span class="nbar-notif-dot"></span>
+        </button>
+        <a routerLink="/tableau-de-bord" class="nbar-avatar" [attr.aria-label]="'Mon tableau de bord (' + userName() + ')'" [title]="userName()" (click)="closeMenu()">{{ userInitials() }}</a>
+        <button class="nbar-icon-btn nbar-logout" type="button" aria-label="Se déconnecter" title="Se déconnecter" (click)="onLogout()">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
+      } @else {
+        <a routerLink="/connexion" class="nbar-auth-link" (click)="closeMenu()">Se connecter</a>
+        <a routerLink="/inscription" class="nbar-auth-btn" (click)="closeMenu()"><span class="nbar-auth-btn__long">Créer un compte</span><span class="nbar-auth-btn__short">S'inscrire</span></a>
+      }
       <button class="nbar-burger" type="button"
               [attr.aria-expanded]="menuOpen()"
               aria-controls="nbar-menu"

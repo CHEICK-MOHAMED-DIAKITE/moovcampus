@@ -5,6 +5,8 @@ import { FullFooter, FooterColumn, FooterLink, SocialLink } from './libraryui/fu
 
 import { REPO_URL } from './data/links';
 import { NewsletterService } from './data/newsletter.service';
+import { AuthService } from './data/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +42,7 @@ export class App {
     {
       title: 'Projet',
       links: [
-        { label: 'Composants LibraryUI', route: '/composants', badge: '11' },
+        { label: 'Composants LibraryUI', route: '/composants', badge: '13' },
         { label: 'Code source', href: REPO_URL },
         { label: 'LibraryUI', href: 'https://www.libraryui.com/accueil' }
       ]
@@ -53,6 +55,14 @@ export class App {
     { icon: 'bi-instagram', href: 'https://www.instagram.com/', label: 'Instagram' },
     { icon: 'bi-tiktok', href: 'https://www.tiktok.com/', label: 'TikTok' }
   ];
+
+  protected readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
+
+  logout(): void {
+    this.auth.logout();
+    this.router.navigate(['/']);
+  }
 
   private readonly newsletter = inject(NewsletterService);
   protected readonly newsletterState = signal<'idle' | 'sending' | 'success' | 'error'>('idle');

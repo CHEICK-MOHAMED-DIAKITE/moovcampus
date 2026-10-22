@@ -1,0 +1,145 @@
+<div class="auth-page" data-libraryui="formulaire-de-connexion · Connexion">
+  <div class="auth-container auth-container--login">
+    <!-- Left Side - Branding -->
+    <div class="auth-branding">
+      <div class="auth-branding__content">
+        <div class="auth-branding__logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M7 22 L13 10 L19 22 L25 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="10" r="3" fill="#f2c230"/></svg>
+        </div>
+        <h1 class="auth-branding__title">Content de te revoir</h1>
+        <p class="auth-branding__subtitle">Connecte-toi pour retrouver tes trajets, ton objectif du mois et ta place au classement.</p>
+        <div class="auth-branding__features">
+          <div class="feature">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Tableau de bord personnel</span>
+          </div>
+          <div class="feature">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Historique de tous tes trajets</span>
+          </div>
+          <div class="feature">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Défis et classement des campus</span>
+          </div>
+        </div>
+      </div>
+      <div class="auth-branding__decoration">
+        <div class="circle circle--1"></div>
+        <div class="circle circle--2"></div>
+        <div class="circle circle--3"></div>
+      </div>
+    </div>
+
+    <!-- Right Side - Form -->
+    <div class="auth-form-wrapper">
+      <div class="auth-form">
+        <div class="auth-form__header">
+          <h2 class="auth-form__title">Connexion</h2>
+          <p class="auth-form__subtitle">Entre tes identifiants pour continuer</p>
+        </div>
+
+        @if (error) {
+          <div class="alert alert--error" role="alert">
+            <i class="bi bi-exclamation-circle"></i>
+            <span>{{ error }}</span>
+            <button class="alert__close" type="button" aria-label="Fermer le message" (click)="error = ''">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+        }
+
+        @if (info) {
+          <div class="alert alert--info" role="status">
+            <i class="bi bi-info-circle"></i>
+            <span>{{ info }}</span>
+            <button class="alert__close" type="button" aria-label="Fermer le message" (click)="info = ''">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+        }
+
+        <form class="form" (ngSubmit)="login()" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="login-email">
+              <span>Adresse e-mail</span>
+            </label>
+            <div class="input-wrapper">
+              <i class="bi bi-envelope input-icon"></i>
+              <input
+                id="login-email"
+                type="email"
+                class="form-input form-input--icon"
+                placeholder="prenom@campus.fr"
+                [(ngModel)]="email"
+                name="email"
+                autocomplete="email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label">
+              <label for="login-pass">Mot de passe</label>
+              <button type="button" class="form-label__link" (click)="forgotPassword()">Mot de passe oublié ?</button>
+            </div>
+            <div class="input-wrapper">
+              <i class="bi bi-lock input-icon"></i>
+              <input
+                id="login-pass"
+                [type]="showPassword ? 'text' : 'password'"
+                class="form-input form-input--icon form-input--password"
+                placeholder="••••••••"
+                [(ngModel)]="password"
+                name="password"
+                autocomplete="current-password">
+              <button
+                type="button"
+                class="password-toggle"
+                [attr.aria-label]="showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+                (click)="togglePassword()">
+                <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group form-group--inline">
+            <label class="checkbox">
+              <input
+                type="checkbox"
+                [(ngModel)]="rememberMe"
+                name="rememberMe">
+              <span class="checkbox__mark"></span>
+              <span class="checkbox__label">Se souvenir de moi</span>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn--primary btn--full"
+            [disabled]="isLoading">
+            @if (isLoading) {
+              <span class="spinner"></span>
+              <span>Connexion en cours…</span>
+            } @else {
+              <span>Se connecter</span>
+              <i class="bi bi-arrow-right"></i>
+            }
+          </button>
+        </form>
+
+        <div class="divider">
+          <span>ou</span>
+        </div>
+
+        <a routerLink="/tableau-de-bord" class="btn btn--social btn--full">
+          <i class="bi bi-eye"></i>
+          <span>Explorer la démo sans compte</span>
+        </a>
+
+        <p class="auth-form__footer">
+          Pas encore de compte ?
+          <a routerLink="/inscription">Créer un compte</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

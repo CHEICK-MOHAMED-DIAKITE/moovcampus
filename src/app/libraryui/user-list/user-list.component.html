@@ -101,7 +101,12 @@
 
   <!-- Pagination -->
   <div class="pagination">
-    <span class="pagination-info">{{ filteredUsers().length }} étudiant(s) sur {{ users().length }}</span>
+    <span class="pagination-info">
+      {{ filteredUsers().length }} étudiant(s) sur {{ users().length }}
+      @if (myPage() && myPage() !== page()) {
+        <button type="button" class="find-me" (click)="goTo(myPage()!)"><i class="bi bi-person-fill-down" aria-hidden="true"></i> Voir ma position</button>
+      }
+    </span>
     <div class="pagination-controls">
       <button class="page-btn" type="button" [disabled]="page() === 1" (click)="goTo(page() - 1)" aria-label="Page précédente"><i class="bi bi-chevron-left"></i></button>
       <button *ngFor="let p of pages()" class="page-btn" type="button" [class.active]="p === page()" [attr.aria-current]="p === page() ? 'page' : null" (click)="goTo(p)">{{ p }}</button>

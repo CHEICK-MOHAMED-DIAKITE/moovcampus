@@ -1,0 +1,229 @@
+<div class="auth-page" data-libraryui="formulaire-d-inscription · Inscription">
+  <div class="auth-container">
+    <!-- Left Side - Branding -->
+    <div class="auth-branding">
+      <div class="auth-branding__content">
+        <div class="auth-branding__logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M7 22 L13 10 L19 22 L25 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="10" r="3" fill="#f2c230"/></svg>
+        </div>
+        <h1 class="auth-branding__title">Rejoins MoovCampus</h1>
+        <p class="auth-branding__subtitle">Crée ton compte en une minute et commence à mesurer le CO₂ que tu évites sur le chemin des cours.</p>
+        <div class="auth-branding__features">
+          <div class="feature">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Ton tableau de bord personnel</span>
+          </div>
+          <div class="feature">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Des points pour toi et ton campus</span>
+          </div>
+          <div class="feature">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Accès aux défis du mois</span>
+          </div>
+        </div>
+      </div>
+      <div class="auth-branding__decoration">
+        <div class="circle circle--1"></div>
+        <div class="circle circle--2"></div>
+        <div class="circle circle--3"></div>
+      </div>
+    </div>
+
+    <!-- Right Side - Form -->
+    <div class="auth-form-wrapper">
+      <div class="auth-form">
+        <div class="auth-form__header">
+          <h2 class="auth-form__title">Créer un compte</h2>
+          <p class="auth-form__subtitle">Gratuit, sans carte ni application à installer</p>
+        </div>
+
+        @if (error) {
+          <div class="alert alert--error" role="alert">
+            <i class="bi bi-exclamation-circle"></i>
+            <span>{{ error }}</span>
+            <button class="alert__close" type="button" aria-label="Fermer le message" (click)="error = ''">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+        }
+
+        @if (success) {
+          <div class="alert alert--success" role="status">
+            <i class="bi bi-check-circle"></i>
+            <span>{{ success }}</span>
+          </div>
+        }
+
+        <form class="form" (ngSubmit)="register()" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="reg-first">Prénom</label>
+              <div class="input-wrapper">
+                <i class="bi bi-person input-icon"></i>
+                <input
+                  id="reg-first"
+                  type="text"
+                  class="form-input form-input--icon"
+                  placeholder="Léa"
+                  [(ngModel)]="firstName"
+                  name="firstName"
+                  autocomplete="given-name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg-last">Nom</label>
+              <div class="input-wrapper">
+                <i class="bi bi-person input-icon"></i>
+                <input
+                  id="reg-last"
+                  type="text"
+                  class="form-input form-input--icon"
+                  placeholder="Kouassi"
+                  [(ngModel)]="lastName"
+                  name="lastName"
+                  autocomplete="family-name">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Adresse e-mail</label>
+            <div class="input-wrapper">
+              <i class="bi bi-envelope input-icon"></i>
+              <input
+                id="reg-email"
+                type="email"
+                class="form-input form-input--icon"
+                placeholder="prenom@campus.fr"
+                [(ngModel)]="email"
+                name="email"
+                autocomplete="email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-campus">Ton campus</label>
+            <div class="input-wrapper">
+              <i class="bi bi-geo-alt input-icon"></i>
+              <select id="reg-campus" class="form-input form-input--icon form-input--select" [(ngModel)]="campus" name="campus">
+                <option value="" disabled>Choisis ton campus</option>
+                @for (c of campuses; track c) {
+                  <option [value]="c">{{ c }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-pass">Mot de passe</label>
+            <div class="input-wrapper">
+              <i class="bi bi-lock input-icon"></i>
+              <input
+                id="reg-pass"
+                [type]="showPassword ? 'text' : 'password'"
+                class="form-input form-input--icon form-input--password"
+                placeholder="8 caractères minimum"
+                [(ngModel)]="password"
+                name="password"
+                autocomplete="new-password">
+              <button
+                type="button"
+                class="password-toggle"
+                [attr.aria-label]="showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+                (click)="togglePassword()">
+                <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+            @if (password) {
+              <div class="password-strength">
+                <div class="password-strength__bar" aria-hidden="true">
+                  @for (i of [1, 2, 3, 4]; track i) {
+                    <div
+                      class="password-strength__segment"
+                      [class.active]="passwordStrength.level >= i"
+                      [style.background]="passwordStrength.level >= i ? passwordStrength.color : ''">
+                    </div>
+                  }
+                </div>
+                <span class="password-strength__text" [style.color]="passwordStrength.color">
+                  {{ passwordStrength.text }}
+                </span>
+              </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-pass2">Confirmer le mot de passe</label>
+            <div class="input-wrapper">
+              <i class="bi bi-lock input-icon"></i>
+              <input
+                id="reg-pass2"
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                class="form-input form-input--icon form-input--password"
+                placeholder="••••••••"
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+                autocomplete="new-password">
+              <button
+                type="button"
+                class="password-toggle"
+                [attr.aria-label]="showConfirmPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+                (click)="toggleConfirmPassword()">
+                <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+            @if (confirmPassword && password !== confirmPassword) {
+              <span class="form-error">Les mots de passe ne correspondent pas</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox">
+              <input
+                type="checkbox"
+                [(ngModel)]="acceptTerms"
+                name="acceptTerms">
+              <span class="checkbox__mark"></span>
+              <span class="checkbox__label">
+                J'accepte d'apparaître dans le classement avec mon prénom, l'initiale de mon nom et mon campus.
+              </span>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn--primary btn--full"
+            [disabled]="isLoading">
+            @if (isLoading) {
+              <span class="spinner"></span>
+              <span>Création en cours…</span>
+            } @else {
+              <span>Créer mon compte</span>
+              <i class="bi bi-arrow-right"></i>
+            }
+          </button>
+        </form>
+
+        <div class="divider">
+          <span>ou</span>
+        </div>
+
+        <a routerLink="/tableau-de-bord" class="btn btn--social btn--full">
+          <i class="bi bi-eye"></i>
+          <span>Explorer la démo sans compte</span>
+        </a>
+
+        <p class="auth-form__footer">
+          Déjà un compte ?
+          <a routerLink="/connexion">Se connecter</a>
+        </p>
+
+        <p class="demo-note">
+          <i class="bi bi-shield-check"></i>
+          Version de démonstration : ton compte et tes trajets restent enregistrés dans ce navigateur, rien n'est envoyé sur un serveur.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

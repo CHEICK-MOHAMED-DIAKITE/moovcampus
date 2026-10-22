@@ -22,10 +22,19 @@
 .nbar-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--mc-gradient); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; text-decoration: none; }
 .nbar-avatar:hover { border-color: var(--mc-yellow); color: #fff; }
 
+/* Ajout MoovCampus : boutons de compte */
+.nbar-auth-link { padding: 0.5rem 0.75rem; font-size: 0.9rem; font-weight: 700; color: var(--mc-ink); text-decoration: none; border-radius: 0.5rem; white-space: nowrap; }
+.nbar-auth-link:hover { background: #f1f5f2; color: var(--mc-ink); }
+.nbar-auth-btn { padding: 0.55rem 1rem; font-size: 0.9rem; font-weight: 700; color: #fff; background: var(--mc-green); text-decoration: none; border-radius: 0.6rem; white-space: nowrap; transition: background 0.2s; }
+.nbar-auth-btn:hover { background: var(--mc-green-dark); color: #fff; }
+.nbar-auth-btn__short { display: none; }
+.nbar-mobile-auth { display: none; }
+button.nbar-link { background: none; border: none; font: inherit; font-weight: 600; cursor: pointer; text-align: left; }
+
 /* Ajout MoovCampus : burger + panneau mobile */
 .nbar-burger { display: none; width: 40px; height: 40px; align-items: center; justify-content: center; border: 1px solid var(--mc-line); background: #fff; border-radius: 0.6rem; font-size: 1.35rem; color: var(--mc-ink); cursor: pointer; }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .nbar-burger { display: inline-flex; }
   .nbar-nav {
     display: none;
@@ -45,10 +54,25 @@
   }
   .nbar--open .nbar-nav { display: flex; }
   .nbar-link { padding: 0.8rem 1rem; font-size: 1rem; }
+  .nbar-mobile-auth { display: block; border-top: 1px solid var(--mc-line); margin-top: 0.25rem; padding-top: 0.25rem; }
+  .nbar-mobile-auth .nbar-link { width: 100%; }
+  .nbar-auth-link, .nbar-logout { display: none; }
+}
+
+@media (max-width: 480px) {
+  .nbar-auth-btn { padding: 0.5rem 0.8rem; font-size: 0.85rem; }
+  .nbar-auth-btn__long { display: none; }
+  .nbar-auth-btn__short { display: inline; }
 }
 
 @media (max-width: 420px) {
   .ui-navbar-showcase { padding: 0.75rem 0.75rem 0; }
   .nbar { padding: 0 0.6rem 0 0.75rem; }
   .nbar-icon-btn { display: none; }
+  .nbar-brand-name { font-size: 1rem; }
+  .nbar-actions { gap: 0.4rem; }
+}
+
+@media (max-width: 359px) {
+  .nbar-brand-name { display: none; }
 }

@@ -108,8 +108,8 @@ export const FAQ: FaqItem[] = [
     open: true
   },
   {
-    question: 'Est-ce que je dois déclarer mes trajets à la main ?',
-    answer: 'Dans cette démo, oui : le bouton « Déclarer un trajet » ouvre un formulaire de trois champs. Tes indicateurs, ton graphique et ton historique se mettent à jour immédiatement.',
+    question: 'Comment je commence ?',
+    answer: 'Crée ton compte en une minute avec ton e-mail et ton campus, puis clique sur « Déclarer un trajet » dans ton tableau de bord. Tes indicateurs, ton graphique, ton historique et ton rang se mettent à jour immédiatement. Tu peux aussi explorer le compte de démonstration sans t\'inscrire.',
     open: false
   },
   {
@@ -123,8 +123,8 @@ export const FAQ: FaqItem[] = [
     open: false
   },
   {
-    question: 'Mes données sont-elles visibles par tout le monde ?',
-    answer: 'Seuls ton prénom, l\'initiale de ton nom, ton campus et tes points apparaissent dans le classement. Le détail de tes trajets reste dans ton tableau de bord.',
+    question: 'Où sont enregistrés mon compte et mes trajets ?',
+    answer: 'Dans cette version de démonstration, ton compte et tes trajets sont enregistrés uniquement dans ton navigateur : rien n\'est envoyé sur un serveur et ton mot de passe n\'est jamais stocké en clair. Dans le classement, seuls ton prénom, l\'initiale de ton nom, ton campus et tes points apparaissent.',
     open: false
   }
 ];

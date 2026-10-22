@@ -92,7 +92,17 @@
     </ng-container>
 
     <!-- Empty State -->
-    <div *ngIf="getFilteredActivities().length === 0" class="empty-state">
+    <div *ngIf="activities().length === 0" class="empty-state">
+      <i class="bi bi-signpost-split"></i>
+      <h3>Aucun trajet pour l'instant</h3>
+      <p>Déclare ton premier trajet pour voir le CO₂ que tu évites.</p>
+      <button class="btn btn--primary" type="button" (click)="action.emit()">
+        <i class="bi bi-plus-lg"></i>
+        {{ actionLabel() }}
+      </button>
+    </div>
+
+    <div *ngIf="activities().length > 0 && getFilteredActivities().length === 0" class="empty-state">
       <i class="bi bi-clock-history"></i>
       <h3>Aucun trajet pour ce filtre</h3>
       <p>Change de mode ou efface ta recherche pour revoir tous tes trajets.</p>

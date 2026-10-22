@@ -17,6 +17,16 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/community/community.page').then(m => m.CommunityPage)
   },
   {
+    path: 'inscription',
+    title: 'Créer un compte · MoovCampus',
+    loadComponent: () => import('./libraryui/register/register.component').then(m => m.RegisterComponent)
+  },
+  {
+    path: 'connexion',
+    title: 'Connexion · MoovCampus',
+    loadComponent: () => import('./libraryui/login/login.component').then(m => m.LoginComponent)
+  },
+  {
     path: 'composants',
     title: 'Composants LibraryUI utilisés · MoovCampus',
     loadComponent: () => import('./pages/components/components.page').then(m => m.ComponentsPage)

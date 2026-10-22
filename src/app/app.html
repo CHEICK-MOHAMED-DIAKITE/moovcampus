@@ -1,7 +1,13 @@
 <button type="button" class="skip-link" (click)="skipToContent()">Aller au contenu</button>
 
 <header class="app-header">
-  <ui-navbar-default brandName="MoovCampus" userInitials="LK" [links]="links" />
+  <ui-navbar-default
+    brandName="MoovCampus"
+    [userInitials]="auth.initials()"
+    [userName]="auth.user()?.firstName ?? ''"
+    [links]="links"
+    (logout)="logout()"
+  />
 </header>
 
 <main id="contenu" class="app-main" tabindex="-1">

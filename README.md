@@ -23,7 +23,9 @@ Chaque matin, des milliers d'étudiants choisissent entre la voiture, les transp
 - chaque kilomètre rapporte des **points**, qui font avancer ton rang et celui de ton **campus** ;
 - des **défis** (vélotaf, semaine sans voiture…) donnent des points bonus.
 
-La démo est interactive : déclarer un trajet met à jour en direct les indicateurs, le graphique, l'historique, l'objectif du mois et ta place dans le classement.
+La démo est interactive : tu peux **créer ton compte**, puis chaque trajet déclaré met à jour en direct tes indicateurs, le graphique, l'historique, l'objectif du mois et ta place dans le classement. Les inscrits à la newsletter reçoivent un **e-mail de bienvenue** (EmailJS).
+
+> Version de démonstration : le site est statique, les comptes et les trajets sont enregistrés dans le navigateur (localStorage, mot de passe haché en SHA-256), rien n'est envoyé sur un serveur.
 
 ## Les pages
 
@@ -32,9 +34,10 @@ La démo est interactive : déclarer un trajet met à jour en direct les indicat
 | **Accueil** | Hero avec un trajet animé, impact de la communauté, étapes, défis, FAQ, appel à l'action |
 | **Tableau de bord** | Indicateurs personnels, km par mode, objectif mensuel, historique des trajets, formulaire de déclaration |
 | **Classement et défis** | Classement filtrable des étudiants, CO₂ évité par campus, tous les défis |
+| **Créer un compte / Connexion** | Formulaires d'inscription et de connexion, session mémorisée |
 | **Composants** | La liste des composants LibraryUI utilisés, avec liens vers LibraryUI et vers le code |
 
-## Les 11 composants LibraryUI utilisés
+## Les 13 composants LibraryUI utilisés
 
 Tous les composants sont dans [`src/app/libraryui/`](src/app/libraryui). Chaque fichier commence par un commentaire qui cite sa page LibraryUI, et l'élément racine de chaque composant porte un attribut `data-libraryui` visible dans l'inspecteur du navigateur.
 
@@ -48,9 +51,11 @@ Tous les composants sont dans [`src/app/libraryui/`](src/app/libraryui). Chaque 
 | 6 | [Modal](https://www.libraryui.com/components/bootstrap/modal) | V1 | `modal-1` | Formulaire de trajet et confirmation |
 | 7 | [User List](https://www.libraryui.com/components/bootstrap/user-list) | list | `user-list` | Classement des étudiants |
 | 8 | [Cards](https://www.libraryui.com/components/bootstrap/cards) | Event card | `event-card` | Cartes de défis |
-| 9 | [Faq](https://www.libraryui.com/components/bootstrap/faq) | Frequently Asked Questions | `faq-minimal` | Questions fréquentes |
-| 10 | [Call to action](https://www.libraryui.com/components/bootstrap/call-to-action) | V1 | `call-to-action-1` | Bandeau final de l'accueil |
-| 11 | [Footer](https://www.libraryui.com/components/bootstrap/footer) | Full footer | `full-footer` | Pied de page |
+| 9 | [Formulaire d'inscription](https://www.libraryui.com/components/bootstrap/formulaire-d-inscription) | Inscription | `register` | Création de compte |
+| 10 | [Formulaire de connexion](https://www.libraryui.com/components/bootstrap/formulaire-de-connexion) | Connexion | `login` | Connexion |
+| 11 | [Faq](https://www.libraryui.com/components/bootstrap/faq) | Frequently Asked Questions | `faq-minimal` | Questions fréquentes |
+| 12 | [Call to action](https://www.libraryui.com/components/bootstrap/call-to-action) | V1 | `call-to-action-1` | Bandeau final de l'accueil |
+| 13 | [Footer](https://www.libraryui.com/components/bootstrap/footer) | Full footer | `full-footer` | Pied de page |
 
 ### Ce qui a été adapté
 

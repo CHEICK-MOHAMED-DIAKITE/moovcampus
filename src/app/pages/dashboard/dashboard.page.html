@@ -1,8 +1,27 @@
 <div class="mc-container">
+  @if (isDemo()) {
+    <div class="demo-banner" role="note">
+      <i class="bi bi-eye" aria-hidden="true"></i>
+      <p><strong>Tu explores le compte de démonstration de Léa.</strong> Crée ton compte pour suivre tes propres trajets et entrer dans le classement.</p>
+      <div class="demo-banner__actions">
+        <a routerLink="/inscription" class="mc-btn mc-btn--primary">Créer mon compte</a>
+        <a routerLink="/connexion" class="mc-btn mc-btn--ghost">Se connecter</a>
+      </div>
+    </div>
+  } @else if (welcome()) {
+    <div class="demo-banner demo-banner--welcome" role="status">
+      <i class="bi bi-stars" aria-hidden="true"></i>
+      <p><strong>Bienvenue {{ firstName() }}, ton compte est créé !</strong> Déclare ton premier trajet pour voir ton impact et entrer dans le classement de {{ auth.user()?.campus }}.</p>
+      <div class="demo-banner__actions">
+        <button type="button" class="mc-btn mc-btn--primary" (click)="openForm(); welcome.set(false)">Déclarer mon premier trajet</button>
+      </div>
+    </div>
+  }
+
   <div class="mc-page-head">
     <div>
-      <h1>Bonjour Léa</h1>
-      <p>Voici ton impact depuis le 1er octobre.</p>
+      <h1>Bonjour {{ firstName() }}</h1>
+      <p>{{ isDemo() ? 'Voici ton impact depuis le 1er octobre.' : 'Voici ton impact depuis la création de ton compte.' }}</p>
     </div>
     <button type="button" class="mc-btn mc-btn--primary" (click)="openForm()">
       <i class="bi bi-plus-lg" aria-hidden="true"></i> Déclarer un trajet
@@ -14,7 +33,7 @@
   <div class="dash-grid">
     <ui-bar-chart-repartition
       title="Tes kilomètres par mode"
-      subtitle="Octobre, tous trajets confondus"
+      [subtitle]="isDemo() ? 'Octobre, tous trajets confondus' : 'Tous tes trajets déclarés'"
       unit="km"
       [data]="chartData()"
     />

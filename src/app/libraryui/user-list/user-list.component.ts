@@ -78,6 +78,12 @@ export class UserListComponent {
     return this.filteredUsers().slice(start, start + this.pageSize);
   });
 
+  /** Page où se trouve l'utilisateur courant (null s'il est filtré ou absent). */
+  readonly myPage = computed(() => {
+    const i = this.filteredUsers().findIndex(u => u.isMe);
+    return i < 0 ? null : Math.floor(i / this.pageSize) + 1;
+  });
+
   readonly pages = computed(() => Array.from({ length: this.pageCount() }, (_, i) => i + 1));
 
   onFilterChange(): void {

@@ -9,11 +9,13 @@ import { Modal1Component } from '../../libraryui/modal-1/modal-1.component';
 import { TripStore } from '../../data/trip.store';
 import { MODES, Mode, co2Saved, formatCo2, modeInfo, pointsFor } from '../../data/mobility';
 import { STUDENTS } from '../../data/community';
+import { AuthService } from '../../data/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'mc-dashboard-page',
   standalone: true,
-  imports: [DecimalPipe, FormsModule, KpiCardsBasicComponent, BarChartRepartitionComponent, ActivityHistoryComponent, Modal1Component],
+  imports: [DecimalPipe, FormsModule, RouterLink, KpiCardsBasicComponent, BarChartRepartitionComponent, ActivityHistoryComponent, Modal1Component],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.scss'
 })
@@ -21,6 +23,11 @@ export class DashboardPage {
   private readonly store = inject(TripStore);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  protected readonly auth = inject(AuthService);
+
+  protected readonly isDemo = this.store.isDemo;
+  protected readonly firstName = computed(() => this.auth.user()?.firstName ?? 'Léa');
+  protected readonly welcome = signal(false);
 
   protected readonly modes = MODES;
   protected readonly trips = this.store.trips;
@@ -31,12 +38,19 @@ export class DashboardPage {
     return STUDENTS.filter(s => s.points > me).length + 1;
   });
 
-  protected readonly kpis = computed<KPICard[]>(() => [
-    { id: 'co2', title: 'CO₂ évité', value: this.store.totalCo2(), format: 'co2', icon: 'bi-cloud-check', iconColor: 'primary', change: { value: 12.5, type: 'increase', period: 'vs septembre' } },
-    { id: 'km', title: 'Km parcourus autrement', value: this.store.totalKm(), format: 'km', icon: 'bi-signpost-split', iconColor: 'info', change: { value: 8.2, type: 'increase', period: 'vs septembre' } },
-    { id: 'pts', title: 'Points', value: this.store.totalPoints(), format: 'number', icon: 'bi-trophy', iconColor: 'warning', change: { value: 15.4, type: 'increase', period: 'vs septembre' } },
+  protected readonly kpis = computed<KPICard[]>(() => {
+    const demo = this.isDemo();
+    const change = (v: number, label: string) => demo
+      ? { value: v, type: 'increase' as const, period: 'vs septembre' }
+      : { value: 0, type: 'neutral' as const, period: label };
+    const n = this.store.tripCount();
+    return [
+    { id: 'co2', title: 'CO₂ évité', value: this.store.totalCo2(), format: 'co2', icon: 'bi-cloud-check', iconColor: 'primary', change: change(12.5, `objectif : ${this.goal} kg`) },
+    { id: 'km', title: 'Km parcourus autrement', value: this.store.totalKm(), format: 'km', icon: 'bi-signpost-split', iconColor: 'info', change: change(8.2, 'depuis ton inscription') },
+    { id: 'pts', title: 'Points', value: this.store.totalPoints(), format: 'number', icon: 'bi-trophy', iconColor: 'warning', change: change(15.4, `${n} trajet${n > 1 ? 's' : ''} déclaré${n > 1 ? 's' : ''}`) },
     { id: 'rank', title: 'Rang au classement', value: this.rank(), format: 'rank', icon: 'bi-bar-chart-line', iconColor: 'success', change: { value: 0, type: 'neutral', period: `sur ${STUDENTS.length + 1} étudiants` } }
-  ]);
+    ];
+  });
 
   protected readonly chartData = computed(() =>
     this.store.kmByMode().map(row => ({
@@ -66,15 +80,15 @@ export class DashboardPage {
   protected previewPoints(): number { return pointsFor({ mode: this.form.mode, km: Number(this.form.km) || 0 }); }
 
   constructor() {
-    if (this.route.snapshot.queryParamMap.get('declarer')) {
-      this.openForm();
-      this.router.navigate([], { queryParams: {}, replaceUrl: true });
-    }
+    const params = this.route.snapshot.queryParamMap;
+    if (params.get('bienvenue')) this.welcome.set(true);
+    if (params.get('declarer')) this.openForm();
+    if (params.keys.length) this.router.navigate([], { queryParams: {}, replaceUrl: true });
   }
 
   openForm(): void {
     this.submitted = false;
-    this.form = { mode: 'velo', from: '', to: 'Campus Villejuif', km: 5 };
+    this.form = { mode: 'velo', from: '', to: this.auth.user()?.campus ?? 'Campus Villejuif', km: 5 };
     this.formOpen.set(true);
   }
 
