@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
  * au domaine du site dans les réglages de sécurité EmailJS.
  */
 export const NEWSLETTER_CONFIG = {
-  serviceId: '',
+  serviceId: 'service_6l14xfw',
   templateId: '',
-  publicKey: ''
+  publicKey: '5dlB476HRKu4raHwa'
 };
 
 @Injectable({ providedIn: 'root' })
