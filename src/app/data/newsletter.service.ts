@@ -9,7 +9,7 @@ export const NEWSLETTER_CONFIG = {
   serviceId: 'service_6l14xfw',
   templateId: 'template_i5ekfrg',
   /** Modèle des messages envoyés depuis le formulaire de contact. */
-  contactTemplateId: '',
+  contactTemplateId: 'template_m2w3h62',
   publicKey: '5dlB476HRKu4raHwa'
 };
 
