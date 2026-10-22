@@ -30,7 +30,7 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 
-  .mc-btn { padding: 0.6rem 1.1rem; font-size: 0.9rem; }
+  .mc-btn { padding: 0.6rem 1.1rem; font-size: 0.9rem; white-space: nowrap; }
 }
 
 @media (max-width: 520px) {
@@ -206,6 +206,8 @@
   }
 
   .ticket__main { padding: 1.5rem 1.25rem 0.75rem; }
+  .ticket__sub { flex-direction: column; align-items: flex-start; gap: 0.1rem; }
+  .ticket__sep { display: none; }
 
   .ticket__stub {
     border-left: 0;
