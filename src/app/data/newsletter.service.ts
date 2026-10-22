@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
  */
 export const NEWSLETTER_CONFIG = {
   serviceId: 'service_6l14xfw',
-  templateId: '',
+  templateId: 'template_i5ekfrg',
   publicKey: '5dlB476HRKu4raHwa'
 };
 
