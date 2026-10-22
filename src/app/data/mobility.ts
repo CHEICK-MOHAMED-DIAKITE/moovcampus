@@ -57,5 +57,5 @@ export const CAMPUSES = [
 /** « 640 g » sous le kilo, « 1,18 kg » au-delà. */
 export function formatCo2(kg: number): string {
   if (kg < 1) return `${Math.round(kg * 1000)} g`;
-  return `${kg.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} kg`;
+  return `${kg.toLocaleString('fr-FR', { maximumFractionDigits: kg >= 10 ? 1 : 2 })} kg`;
 }

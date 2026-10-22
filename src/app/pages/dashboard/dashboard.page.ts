@@ -28,6 +28,23 @@ export class DashboardPage {
   protected readonly isDemo = this.store.isDemo;
   protected readonly firstName = computed(() => this.auth.user()?.firstName ?? 'Léa');
   protected readonly welcome = signal(false);
+  protected readonly campus = computed(() => this.auth.user()?.campus ?? 'Campus Villejuif');
+  protected readonly tripCount = this.store.tripCount;
+  protected readonly co2Label = computed(() => formatCo2(this.store.totalCo2()));
+  protected readonly memberSince = computed(() => {
+    const d = this.auth.user()?.createdAt;
+    return d ? new Date(d).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }) : '';
+  });
+
+  /** Nombre de jours consécutifs (jusqu'à aujourd'hui ou hier) avec au moins un trajet. */
+  protected readonly streak = computed(() => {
+    const days = new Set(this.store.trips().map(t => new Date(t.date).toDateString()));
+    const cursor = new Date();
+    if (!days.has(cursor.toDateString())) cursor.setDate(cursor.getDate() - 1);
+    let n = 0;
+    while (days.has(cursor.toDateString())) { n++; cursor.setDate(cursor.getDate() - 1); }
+    return n;
+  });
 
   protected readonly modes = MODES;
   protected readonly trips = this.store.trips;

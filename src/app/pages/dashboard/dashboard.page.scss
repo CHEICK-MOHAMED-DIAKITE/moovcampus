@@ -37,6 +37,185 @@
   .demo-banner__actions { width: 100%; .mc-btn { flex: 1; } }
 }
 
+/* ---------- Ticket (en-tête du tableau de bord) ---------- */
+.ticket {
+  --notch: 18px;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  margin: 1.75rem 0 1.25rem;
+  border-radius: 24px;
+  color: #fff;
+  background:
+    radial-gradient(520px 260px at 0% 0%, rgba(63, 211, 148, 0.25), transparent 65%),
+    radial-gradient(420px 260px at 100% 100%, rgba(242, 194, 48, 0.16), transparent 60%),
+    #0b1f17;
+  box-shadow: 0 24px 60px rgba(11, 31, 23, 0.22);
+  /* Encoches de la perforation */
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at calc(100% - 300px) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - 300px) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+  mask:
+    radial-gradient(circle var(--notch) at calc(100% - 300px) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - 300px) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+}
+
+.ticket__main {
+  position: relative;
+  padding: 1.75rem 2rem 1.25rem;
+  min-width: 0;
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0.6rem 0 0.25rem;
+    color: #f4f7f2;
+  }
+}
+
+.ticket__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #a9bdb3;
+}
+
+.ticket__logo {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  background: var(--mc-green);
+  color: #fff;
+
+  svg { width: 18px; height: 18px; }
+}
+
+.ticket__sub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: #b9cbc1;
+}
+
+.ticket__sep {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.ticket__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.ticket__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  &--streak { background: rgba(255, 143, 64, 0.16); border-color: rgba(255, 143, 64, 0.35); color: #ffc79a; }
+}
+
+.ticket__route {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin-top: 0.9rem;
+}
+
+.ticket__stub {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 1.5rem 1.75rem;
+  border-left: 2px dashed rgba(255, 255, 255, 0.18);
+}
+
+.ticket__stub-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #a9bdb3;
+}
+
+.ticket__stub-value {
+  font-family: var(--mc-font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #ffd866;
+  font-variant-numeric: tabular-nums;
+}
+
+.ticket__stub-hint {
+  font-size: 0.85rem;
+  color: #9fb5aa;
+}
+
+.ticket__btn {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.75rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  background: #f2c230;
+  color: #1c1600;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+
+  &:hover { background: #ffd34d; transform: translateY(-1px); }
+}
+
+.ticket__barcode {
+  margin-top: 1rem;
+  width: 100%;
+  height: 26px;
+  opacity: 0.35;
+  background: repeating-linear-gradient(90deg, #fff 0 2px, transparent 2px 5px, #fff 5px 6px, transparent 6px 9px, #fff 9px 12px, transparent 12px 14px);
+  border-radius: 2px;
+}
+
+@media (max-width: 760px) {
+  .ticket {
+    grid-template-columns: 1fr;
+    -webkit-mask: none;
+    mask: none;
+  }
+
+  .ticket__main { padding: 1.5rem 1.25rem 0.75rem; }
+
+  .ticket__stub {
+    border-left: 0;
+    border-top: 2px dashed rgba(255, 255, 255, 0.18);
+    padding: 1.25rem;
+  }
+
+  .ticket__btn { width: 100%; justify-content: center; }
+}
+
 .dash-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);

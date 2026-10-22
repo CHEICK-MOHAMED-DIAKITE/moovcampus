@@ -18,15 +18,44 @@
     </div>
   }
 
-  <div class="mc-page-head">
-    <div>
+  <!-- En-tête façon titre de transport -->
+  <section class="ticket" aria-label="Ma carte MoovCampus">
+    <div class="ticket__main">
+      <div class="ticket__brand">
+        <span class="ticket__logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M7 22 L13 10 L19 22 L25 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="10" r="3" fill="#f2c230"/></svg>
+        </span>
+        Carte MoovCampus
+      </div>
       <h1>Bonjour {{ firstName() }}</h1>
-      <p>{{ isDemo() ? 'Voici ton impact depuis le 1er octobre.' : 'Voici ton impact depuis la création de ton compte.' }}</p>
+      <p class="ticket__sub">
+        {{ campus() }}
+        <span class="ticket__sep" aria-hidden="true"></span>
+        {{ isDemo() ? 'Compte de démonstration' : 'Membre depuis ' + memberSince() }}
+      </p>
+      <div class="ticket__chips">
+        <span class="ticket__chip ticket__chip--streak">
+          <i class="bi bi-fire" aria-hidden="true"></i>
+          @if (streak() > 0) { Série de {{ streak() }} jour{{ streak() > 1 ? 's' : '' }} } @else { Commence ta série aujourd'hui }
+        </span>
+        <span class="ticket__chip"><i class="bi bi-signpost-split" aria-hidden="true"></i> {{ tripCount() }} trajet{{ tripCount() > 1 ? 's' : '' }}</span>
+        <span class="ticket__chip"><i class="bi bi-trophy" aria-hidden="true"></i> <span>{{ rank() }}<sup>e</sup> au classement</span></span>
+      </div>
+      <svg class="ticket__route" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M5 30 C 120 30, 140 8, 260 10 S 420 34, 595 12" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="3" stroke-dasharray="1 10" stroke-linecap="round"/>
+      </svg>
     </div>
-    <button type="button" class="mc-btn mc-btn--primary" (click)="openForm()">
-      <i class="bi bi-plus-lg" aria-hidden="true"></i> Déclarer un trajet
-    </button>
-  </div>
+
+    <div class="ticket__stub">
+      <span class="ticket__stub-label">CO₂ évité</span>
+      <strong class="ticket__stub-value">{{ co2Label() }}</strong>
+      <span class="ticket__stub-hint">≈ {{ trees() | number:'1.1-1' }} arbre{{ trees() >= 2 ? 's' : '' }} pendant un an</span>
+      <button type="button" class="ticket__btn" (click)="openForm()">
+        <i class="bi bi-plus-lg" aria-hidden="true"></i> Déclarer un trajet
+      </button>
+      <span class="ticket__barcode" aria-hidden="true"></span>
+    </div>
+  </section>
 
   <ui-kpi-cards-basic [basicKPIs]="kpis()" />
 
